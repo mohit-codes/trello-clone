@@ -22,7 +22,7 @@ h1{
   .text-center{
     text-align: center;
   }
-  .login-method-seperator{
+  .login-method-separator{
     margin:15px 0px;
     }
   #google-icon{

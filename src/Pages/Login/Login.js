@@ -16,7 +16,7 @@ import {
 } from "./Login.styles";
 
 export const Login = () => {
-  const { emailValidate } = useAuth();
+  const { emailValidate, loginUserWithCredentials } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -24,6 +24,7 @@ export const Login = () => {
   async function loginHandler(e, email, password) {
     e.preventDefault();
     const v = await emailValidate(email);
+    loginUserWithCredentials(email, password);
     if (!v) {
       setErrorBool(true);
     } else {
@@ -73,13 +74,13 @@ export const Login = () => {
                 )}
               </div>
             </div>
-            <ErrorText>" "</ErrorText>
+            <ErrorText> </ErrorText>
 
             <FormFieldButton type="submit" value="Log in" />
           </form>
 
           <div>
-            <div className="login-method-seperator text-center">OR</div>
+            <div className="login-method-separator text-center">OR</div>
             <OauthButton>
               {" "}
               <span id="google-icon"></span> Continue with Google
@@ -87,7 +88,7 @@ export const Login = () => {
           </div>
           <FormBottomLinks>
             <div>
-              <Link to="forgot-password"> Can't log in?</Link>
+              <button className="rounded-lg hover:bg-green-500">abcd</button>
               <Link to="signup" className="bottom-link-two">
                 {" "}
                 Signup for an account
