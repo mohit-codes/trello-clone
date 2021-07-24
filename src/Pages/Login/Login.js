@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useAuth } from "../../Context/AuthProvider";
 import { Link } from "react-router-dom";
+import Imga from "../../assets/undraw_a.svg";
+import Imgb from "../../assets/undraw_b.svg";
 import {
-  Background,
   CenterLayout,
   AccountForm,
   GlobalStyle,
@@ -10,21 +11,18 @@ import {
   FormFieldPassword,
   Logo,
   FormFieldButton,
-  OauthButton,
   ErrorText,
-  FormBottomLinks,
 } from "./Login.styles";
 
 export const Login = () => {
-  const { emailValidate, loginUserWithCredentials } = useAuth();
-  const [email, setEmail] = useState("");
+  const { loginUserWithCredentials } = useAuth();
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorBool, setErrorBool] = useState(false);
-  async function loginHandler(e, email, password) {
+  async function loginHandler(e, username, password) {
     e.preventDefault();
-    const v = await emailValidate(email);
-    loginUserWithCredentials(email, password);
+    const v = loginUserWithCredentials(username, password);
     if (!v) {
       setErrorBool(true);
     } else {
@@ -33,24 +31,39 @@ export const Login = () => {
   }
 
   return (
-    <Background>
+    <div className="min-w-full min-h-screen ">
+      <div className="fixed h-full w-full z-minus1">
+        <div className="absolute bottom-0 w-0 sm:w-1/3">
+          <img className="" src={Imga} />
+        </div>
+        <div className="absolute bottom-0 right-0 w-0 sm:w-1/3">
+          <img className="" src={Imgb} />
+        </div>
+      </div>
       <GlobalStyle />
       <Logo>Trello</Logo>
-      <CenterLayout>
+      <CenterLayout className="">
         <AccountForm>
-          <h1>Log in to Trello</h1>
-          <form onSubmit={(e) => loginHandler(e, email, password)}>
+          <h1 className="text-center ">Log in to Trello</h1>
+          <ErrorText show={errorBool}>Enter a valid email !</ErrorText>
+          <form
+            className="space-y-4"
+            onSubmit={(e) => loginHandler(e, username, password)}
+          >
             <div>
               <FormFieldEmail
                 type="text"
                 required
-                value={email}
+                value={username}
                 id=""
-                placeholder="Enter email"
-                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter username"
+                onChange={(e) => {
+                  setErrorBool(false);
+                  setUsername(e.target.value);
+                }}
               />
             </div>
-            <ErrorText show={errorBool}>Enter a valid email !</ErrorText>
+
             <div className="password-container">
               <FormFieldPassword
                 type={showPassword ? "text" : "password"}
@@ -74,29 +87,16 @@ export const Login = () => {
                 )}
               </div>
             </div>
-            <ErrorText> </ErrorText>
-
             <FormFieldButton type="submit" value="Log in" />
           </form>
-
           <div>
             <div className="login-method-separator text-center">OR</div>
-            <OauthButton>
-              {" "}
-              <span id="google-icon"></span> Continue with Google
-            </OauthButton>
           </div>
-          <FormBottomLinks>
-            <div>
-              <button className="rounded-lg hover:bg-green-500">abcd</button>
-              <Link to="signup" className="bottom-link-two">
-                {" "}
-                Signup for an account
-              </Link>
-            </div>
-          </FormBottomLinks>
+          <div className="text-center">
+            <Link to="signup">Signup for an account</Link>
+          </div>
         </AccountForm>
       </CenterLayout>
-    </Background>
+    </div>
   );
 };
