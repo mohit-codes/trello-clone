@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useAuth } from "../../Context/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LeftImage from "../../assets/undraw_a.svg";
 import RightImage from "../../assets/undraw_b.svg";
 import {
   CenterLayout,
   AccountForm,
   GlobalStyle,
-  FormFieldEmail,
+  FormField,
   FormFieldPassword,
   Logo,
   FormFieldButton,
@@ -23,10 +23,11 @@ export const Login = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   // const { state } = useLocation();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   async function loginHandler(e, username, password) {
     e.preventDefault();
+    setErrorMsg("");
     setLoginStatus("loading");
     const { message, success } = await loginUserWithCredentials(
       username,
@@ -34,7 +35,7 @@ export const Login = () => {
     );
     if (success) {
       setLoginStatus("success");
-      // navigate("/home");
+      navigate("/home", { replace: true });
     } else {
       setErrorMsg(message);
       setLoginStatus("Failed");
@@ -64,11 +65,10 @@ export const Login = () => {
             onSubmit={(e) => loginHandler(e, username, password)}
           >
             <div>
-              <FormFieldEmail
+              <FormField
                 type="text"
                 required
                 value={username}
-                id=""
                 placeholder="Enter username"
                 onChange={(e) => {
                   setErrorMsg(false);
@@ -82,7 +82,6 @@ export const Login = () => {
                 type={showPassword ? "text" : "password"}
                 required
                 value={password}
-                id=""
                 placeholder="Enter password"
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -106,10 +105,10 @@ export const Login = () => {
             />
           </form>
           <div>
-            <div className="login-method-separator text-center">OR</div>
+            <div className="method-separator text-center">OR</div>
           </div>
           <div className="text-center">
-            <Link to="signup">Signup for an account</Link>
+            <Link to="/signup">Signup for an account</Link>
           </div>
         </AccountForm>
       </CenterLayout>

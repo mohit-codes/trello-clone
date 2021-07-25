@@ -18,7 +18,7 @@ h1{
   input::-ms-clear {
         display: none;
       }
-  .login-method-separator{
+  .method-separator{
     margin:15px 0px;
     }
   .password-container{
@@ -79,7 +79,7 @@ export const CenterLayout = styled.div`
   padding: 25px 40px;
   box-shadow: rgb(0 0 0 / 10%) 0 0 10px;
 `;
-export const FormFieldEmail = styled.input`
+export const FormField = styled.input`
   ${inputStyles}
 `;
 export const FormFieldPassword = styled.input`
