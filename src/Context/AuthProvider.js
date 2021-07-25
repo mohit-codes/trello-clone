@@ -33,6 +33,28 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const signupUserWithCredentials = async (username, email, password) => {
+    try {
+      const {
+        data: { user, success, message, token },
+      } = await axios.post("http://localhost:8080/users/signup", {
+        username: username.toLowerCase(),
+        email: email.toLowerCase(),
+        password,
+      });
+      if (success) {
+        setUser(user);
+        setToken(token);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        localStorage?.setItem("authUser", JSON.stringify(user));
+        localStorage?.setItem("authToken", JSON.stringify(token));
+      }
+      return { user, message, success };
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   function emailValidate(email) {
     return /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
       email
@@ -49,7 +71,14 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, token, emailValidate, loginUserWithCredentials, logout }}
+      value={{
+        user,
+        token,
+        emailValidate,
+        loginUserWithCredentials,
+        signupUserWithCredentials,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>
