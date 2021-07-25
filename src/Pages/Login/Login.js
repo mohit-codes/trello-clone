@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useAuth } from "../../Context/AuthProvider";
 import { Link } from "react-router-dom";
-import Imga from "../../assets/undraw_a.svg";
-import Imgb from "../../assets/undraw_b.svg";
+import LeftImage from "../../assets/undraw_a.svg";
+import RightImage from "../../assets/undraw_b.svg";
 import {
   CenterLayout,
   AccountForm,
@@ -16,17 +16,28 @@ import {
 
 export const Login = () => {
   const { loginUserWithCredentials } = useAuth();
+  const [loginStatus, setLoginStatus] = useState("Login");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [errorBool, setErrorBool] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  // const { state } = useLocation();
+  // const navigate = useNavigate();
+
   async function loginHandler(e, username, password) {
     e.preventDefault();
-    const v = loginUserWithCredentials(username, password);
-    if (!v) {
-      setErrorBool(true);
+    setLoginStatus("loading");
+    const { message, success } = await loginUserWithCredentials(
+      username,
+      password
+    );
+    if (success) {
+      setLoginStatus("success");
+      // navigate("/home");
     } else {
-      console.log("sahi");
+      setErrorMsg(message);
+      setLoginStatus("Failed");
     }
   }
 
@@ -34,10 +45,10 @@ export const Login = () => {
     <div className="min-w-full min-h-screen ">
       <div className="fixed h-full w-full z-minus1">
         <div className="absolute bottom-0 w-0 sm:w-1/3">
-          <img className="" src={Imga} />
+          <img className="" src={LeftImage} />
         </div>
         <div className="absolute bottom-0 right-0 w-0 sm:w-1/3">
-          <img className="" src={Imgb} />
+          <img className="" src={RightImage} />
         </div>
       </div>
       <GlobalStyle />
@@ -45,7 +56,9 @@ export const Login = () => {
       <CenterLayout className="">
         <AccountForm>
           <h1 className="text-center ">Log in to Trello</h1>
-          <ErrorText show={errorBool}>Enter a valid email !</ErrorText>
+          <ErrorText show={errorMsg !== "" ? true : false}>
+            {errorMsg}
+          </ErrorText>
           <form
             className="space-y-4"
             onSubmit={(e) => loginHandler(e, username, password)}
@@ -58,7 +71,7 @@ export const Login = () => {
                 id=""
                 placeholder="Enter username"
                 onChange={(e) => {
-                  setErrorBool(false);
+                  setErrorMsg(false);
                   setUsername(e.target.value);
                 }}
               />
@@ -87,7 +100,10 @@ export const Login = () => {
                 )}
               </div>
             </div>
-            <FormFieldButton type="submit" value="Log in" />
+            <FormFieldButton
+              type="submit"
+              value={loginStatus === "loading" ? "Logging In..." : "Login"}
+            />
           </form>
           <div>
             <div className="login-method-separator text-center">OR</div>
