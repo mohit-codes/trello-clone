@@ -14,7 +14,7 @@ module.exports = {
     },
     backgroundColor: (theme) => ({
       ...theme("colors"),
-      bggrey: "#f9fafc",
+      bggray: "#f6f7fb",
     }),
   },
   variants: {
