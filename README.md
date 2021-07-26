@@ -4,7 +4,7 @@
 
 - React for frontend development
 - React - Reducer + Context
-- Styling using Tailwind css ands styled-components
+- Styling using Tailwind css and styled-components
 - React router v6 (beta) for routing
 - JWT token for authorization 
 - Backend using ExpressJS connected to MongoDB through Mongoose
