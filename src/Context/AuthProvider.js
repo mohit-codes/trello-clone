@@ -1,6 +1,7 @@
 import React, { useContext, createContext, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
@@ -11,7 +12,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(
     JSON.parse(localStorage.getItem("authToken"))
   );
-
+  const navigate = useNavigate();
   const loginUserWithCredentials = async (username, password) => {
     try {
       const {
@@ -67,6 +68,7 @@ export const AuthProvider = ({ children }) => {
     axios.defaults.headers.common["Authorization"] = null;
     localStorage?.removeItem("authUser");
     localStorage?.removeItem("authToken");
+    navigate("/login");
   };
 
   return (
