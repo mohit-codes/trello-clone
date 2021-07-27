@@ -1,61 +1,88 @@
 import React, { useState } from "react";
 import { useAuth } from "../../Context/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import LeftImage from "../../assets/undraw_a.svg";
+import RightImage from "../../assets/undraw_b.svg";
 import {
-  Background,
   CenterLayout,
   AccountForm,
   GlobalStyle,
-  FormFieldEmail,
+  FormField,
   FormFieldPassword,
   Logo,
   FormFieldButton,
-  OauthButton,
   ErrorText,
-  FormBottomLinks,
 } from "./Login.styles";
-
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 export const Login = () => {
-  const { emailValidate } = useAuth();
-  const [email, setEmail] = useState("");
+  const { loginUserWithCredentials } = useAuth();
+  const [loginStatus, setLoginStatus] = useState("Login");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [errorBool, setErrorBool] = useState(false);
-  async function loginHandler(e, email, password) {
+  const [errorMsg, setErrorMsg] = useState("");
+
+  // const { state } = useLocation();
+  const navigate = useNavigate();
+  useDocumentTitle("Log in into Trello");
+
+  async function loginHandler(e, username, password) {
     e.preventDefault();
-    const v = await emailValidate(email);
-    if (!v) {
-      setErrorBool(true);
+    setErrorMsg("");
+    setLoginStatus("loading");
+    const { message, success } = await loginUserWithCredentials(
+      username,
+      password
+    );
+    if (success) {
+      setLoginStatus("success");
+      navigate("/", { replace: true });
     } else {
-      console.log("sahi");
+      setErrorMsg(message);
+      setLoginStatus("Failed");
     }
   }
 
   return (
-    <Background>
+    <div className="min-w-full min-h-screen ">
+      <div className="fixed h-full w-full z-minus1">
+        <div className="absolute bottom-0 w-0 sm:w-1/3">
+          <img src={LeftImage} />
+        </div>
+        <div className="absolute bottom-0 right-0 w-0 sm:w-1/3">
+          <img src={RightImage} />
+        </div>
+      </div>
       <GlobalStyle />
       <Logo>Trello</Logo>
-      <CenterLayout>
+      <CenterLayout className="">
         <AccountForm>
-          <h1>Log in to Trello</h1>
-          <form onSubmit={(e) => loginHandler(e, email, password)}>
+          <h1 className="text-center ">Log in to Trello</h1>
+          <ErrorText show={errorMsg !== "" ? true : false}>
+            {errorMsg}
+          </ErrorText>
+          <form
+            className="space-y-4"
+            onSubmit={(e) => loginHandler(e, username, password)}
+          >
             <div>
-              <FormFieldEmail
+              <FormField
                 type="text"
                 required
-                value={email}
-                id=""
-                placeholder="Enter email"
-                onChange={(e) => setEmail(e.target.value)}
+                value={username}
+                placeholder="Enter username"
+                onChange={(e) => {
+                  setErrorMsg(false);
+                  setUsername(e.target.value);
+                }}
               />
             </div>
-            <ErrorText show={errorBool}>Enter a valid email !</ErrorText>
+
             <div className="password-container">
               <FormFieldPassword
                 type={showPassword ? "text" : "password"}
                 required
                 value={password}
-                id=""
                 placeholder="Enter password"
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -73,29 +100,19 @@ export const Login = () => {
                 )}
               </div>
             </div>
-            <ErrorText>" "</ErrorText>
-
-            <FormFieldButton type="submit" value="Log in" />
+            <FormFieldButton
+              type="submit"
+              value={loginStatus === "loading" ? "Logging In..." : "Login"}
+            />
           </form>
-
           <div>
-            <div className="login-method-seperator text-center">OR</div>
-            <OauthButton>
-              {" "}
-              <span id="google-icon"></span> Continue with Google
-            </OauthButton>
+            <div className="method-separator text-center">OR</div>
           </div>
-          <FormBottomLinks>
-            <div>
-              <Link to="forgot-password"> Can't log in?</Link>
-              <Link to="signup" className="bottom-link-two">
-                {" "}
-                Signup for an account
-              </Link>
-            </div>
-          </FormBottomLinks>
+          <div className="text-center">
+            <Link to="/signup">Signup for an account</Link>
+          </div>
         </AccountForm>
       </CenterLayout>
-    </Background>
+    </div>
   );
 };

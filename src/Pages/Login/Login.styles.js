@@ -2,7 +2,6 @@ import styled, { css, createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
 h1{
-  text-align: center;
   color: #5E6C84;
   font-size: 16px;
   letter-spacing: -0.01em;
@@ -19,15 +18,9 @@ h1{
   input::-ms-clear {
         display: none;
       }
-  .text-center{
-    text-align: center;
-  }
-  .login-method-seperator{
+  .method-separator{
     margin:15px 0px;
     }
-  #google-icon{
-    
-  }
   .password-container{
     display: flex;
     justify-content: space-around;
@@ -41,14 +34,12 @@ h1{
   .password-container:focus-within{
     border: 2px solid black;
   }
-  .bottom-link-two::before{content:"•";margin: 0px 5px ;color:black}
   `;
 const inputStyles = css`
   width: 100%;
   font-size: 14px;
   background-color: #fafbfc;
   border: 2px solid #dfe1e6;
-  ${"" /* margin: 0 0 1.2em; */}
   border-radius: 3px;
   height: 44px;
   transition: background-color 0.2s ease-in-out 0s,
@@ -73,11 +64,12 @@ export const Background = styled.div`
 export const AccountForm = styled.div`
   /* display: flex; */
 `;
-export const ErrorText = styled.p`
+export const ErrorText = styled.div`
   font-size: 14px;
   color: red;
   margin: ${(props) => (props.show ? "10px 0" : "0 0")};
   visibility: ${(props) => (props.show ? "visible" : "hidden")};
+  display: ${(props) => (props.show ? "block" : "none")};
 `;
 export const CenterLayout = styled.div`
   margin: 0 auto;
@@ -87,12 +79,13 @@ export const CenterLayout = styled.div`
   padding: 25px 40px;
   box-shadow: rgb(0 0 0 / 10%) 0 0 10px;
 `;
-export const FormFieldEmail = styled.input`
+export const FormField = styled.input`
   ${inputStyles}
 `;
 export const FormFieldPassword = styled.input`
   ${inputStyles}
   border: none;
+  height: 40px;
   width: 90%;
   margin: 0;
   padding: 0;
@@ -111,17 +104,9 @@ export const FormFieldButton = styled.input`
   cursor: pointer;
   font-weight: bold;
 `;
-export const OauthButton = styled.div`
-  border-radius: 5px;
-  text-align: center;
-  padding: 10px;
-  font-weight: 500;
-  box-shadow: rgba(0 0 0 / 20%) 1px 1px 5px 0;
-`;
+
 export const FormBottomLinks = styled.div`
-  width: 400px;
   margin: 25px 0;
-  border-top: 1px solid hsl(0, 0%, 80%);
   text-align: center;
   padding: 5px 0 0 0;
 `;
