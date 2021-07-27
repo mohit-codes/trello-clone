@@ -13,7 +13,7 @@ import {
   FormFieldButton,
   ErrorText,
 } from "./Login.styles";
-
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 export const Login = () => {
   const { loginUserWithCredentials } = useAuth();
   const [loginStatus, setLoginStatus] = useState("Login");
@@ -24,6 +24,7 @@ export const Login = () => {
 
   // const { state } = useLocation();
   const navigate = useNavigate();
+  useDocumentTitle("Log in into Trello");
 
   async function loginHandler(e, username, password) {
     e.preventDefault();
@@ -35,7 +36,7 @@ export const Login = () => {
     );
     if (success) {
       setLoginStatus("success");
-      navigate("/home", { replace: true });
+      navigate("/", { replace: true });
     } else {
       setErrorMsg(message);
       setLoginStatus("Failed");
@@ -46,10 +47,10 @@ export const Login = () => {
     <div className="min-w-full min-h-screen ">
       <div className="fixed h-full w-full z-minus1">
         <div className="absolute bottom-0 w-0 sm:w-1/3">
-          <img className="" src={LeftImage} />
+          <img src={LeftImage} />
         </div>
         <div className="absolute bottom-0 right-0 w-0 sm:w-1/3">
-          <img className="" src={RightImage} />
+          <img src={RightImage} />
         </div>
       </div>
       <GlobalStyle />
