@@ -13,6 +13,7 @@ import {
   FormFieldButton,
   ErrorText,
 } from "../Login/Login.styles";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 export const Signup = () => {
   const { emailValidate, signupUserWithCredentials } = useAuth();
@@ -35,7 +36,7 @@ export const Signup = () => {
   );
 
   const navigate = useNavigate();
-
+  useDocumentTitle("Create an account | Trello");
   async function signupHandler(e, username, email, password) {
     setSignupError("");
     setServerError("");
@@ -51,7 +52,7 @@ export const Signup = () => {
           );
           if (success) {
             setSignupStatus("success");
-            navigate("/home", { replace: true });
+            navigate("/", { replace: true });
           } else {
             setServerError(message);
             setSignupStatus("Failed");
@@ -183,7 +184,7 @@ export const Signup = () => {
             <div className="method-separator text-center">OR</div>
           </div>
           <div className="text-center">
-            <Link to="/">Already have an account? Login</Link>
+            <Link to="/login">Already have an account? Login</Link>
           </div>
         </AccountForm>
       </CenterLayout>
