@@ -7,3 +7,13 @@
 * {
   font-family: "poppins";
 }
+
+.App {
+  height: 100vh;
+}
+
+.fa-outlined {
+  -webkit-text-fill-color: transparent !important;
+  -webkit-text-stroke-width: 1px !important;
+  -webkit-text-stroke-color: black !important;
+}
