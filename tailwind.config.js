@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       zIndex: {
         minus1: "-1",
+        4: "4",
       },
     },
     backgroundColor: (theme) => ({
