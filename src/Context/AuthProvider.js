@@ -13,6 +13,23 @@ export const AuthProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("authToken"))
   );
   const navigate = useNavigate();
+
+  if (token) {
+    console.log("token set");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
+
+  axios.interceptors.response.use(undefined, function (error) {
+    if (
+      error.response.status === 401 ||
+      error.response.status === 403 ||
+      error.response.data.message === "Invalid Token"
+    ) {
+      logout();
+    }
+    return Promise.reject(error);
+  });
+
   const loginUserWithCredentials = async (username, password) => {
     try {
       const {
