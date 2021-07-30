@@ -7,10 +7,14 @@ module.exports = {
       poppins: ["Poppins"],
       // noto: ["Noto Sans"],
     },
+
     extend: {
       zIndex: {
         minus1: "-1",
         4: "4",
+      },
+      width: {
+        800: "800px",
       },
     },
     backgroundColor: (theme) => ({
