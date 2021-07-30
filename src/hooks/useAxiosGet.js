@@ -13,8 +13,9 @@ export const useAxiosGet = (path, id) => {
     let unmounted = false;
     const fetch = async () => {
       try {
-        const res = axios.get(backendUrl + path + id);
-        setData(res.body);
+        const url = backendUrl + path + id;
+        const res = await axios.get(url);
+        setData(res.data);
         setLoading(false);
       } catch (err) {
         console.log(err);
