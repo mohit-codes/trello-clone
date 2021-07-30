@@ -20,7 +20,6 @@
 
 .out-of-focus {
   height: 200vh;
-  overflow: none;
   width: 100vw;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
