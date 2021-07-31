@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { backendUrl } from "../util/constant";
 
 export const useAxiosGet = (path, id) => {
-  const [data, setData] = useState();
+  const [data, setData] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
@@ -13,15 +13,19 @@ export const useAxiosGet = (path, id) => {
     let unmounted = false;
     const fetch = async () => {
       try {
-        const url = backendUrl + path + id;
+        const url = `${backendUrl}/${path}/${id}`;
         const res = await axios.get(url);
-        setData(res.data);
-        setLoading(false);
+        if (!unmounted) {
+          setData(res.data[`${path}`]);
+          setLoading(false);
+        }
       } catch (err) {
         console.log(err);
-        setLoading(false);
-        setError(true);
-        setErrorMessage(err.message);
+        if (!unmounted) {
+          setLoading(false);
+          setError(true);
+          setErrorMessage(err.message);
+        }
       }
     };
     fetch();
