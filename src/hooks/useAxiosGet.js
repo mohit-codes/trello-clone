@@ -2,9 +2,11 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useAuth } from "../Context/AuthProvider";
 import { backendUrl } from "../util/constant";
 
-export const useAxiosGet = (path, id) => {
+export const useAxiosGet = (path) => {
+  const { user } = useAuth();
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -13,7 +15,7 @@ export const useAxiosGet = (path, id) => {
     let unmounted = false;
     const fetch = async () => {
       try {
-        const url = `${backendUrl}/${path}/${id}`;
+        const url = `${backendUrl}/${path}/${user._id}`;
         const res = await axios.get(url);
         if (!unmounted) {
           setData(res.data[`${path}`]);
