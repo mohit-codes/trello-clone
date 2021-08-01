@@ -8,7 +8,7 @@ export const Header = () => {
   const { user, logout } = useAuth();
   return (
     <>
-      <nav className="pl-4 md:p-0 flex z-10 h-16 justify-between items-center">
+      <nav className="pl-4 md:p-0 flex z-10 h-14 justify-between items-center">
         <div className="hidden md:flex h-10 items-center ml-10">
           <i className="fa fa-search text-gray-400"></i>
           <input
