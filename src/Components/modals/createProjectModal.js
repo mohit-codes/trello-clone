@@ -34,9 +34,7 @@ const CreateProjectModal = ({ setShowModal, addProject }) => {
         </p>
         <form onSubmit={(e) => submitHandler(e)} className="flex-1 py-2">
           <div>
-            <label htmlFor="title" className="block">
-              Project Name
-            </label>
+            <label className="block">Project Title</label>
             <input
               type="text"
               name="title"
@@ -47,7 +45,7 @@ const CreateProjectModal = ({ setShowModal, addProject }) => {
             />
           </div>
           <div>
-            <label htmlFor="description">Project Description</label>
+            <label>Project Description</label>
             <textarea
               name="description"
               title="description"
@@ -58,17 +56,19 @@ const CreateProjectModal = ({ setShowModal, addProject }) => {
             ></textarea>
           </div>
           {projectTitle.trim() !== "" ? (
-            <input
+            <button
               type="submit"
-              value="Create Project"
-              className="w-full p-2 rounded-md bg-blue-500 text-white cursor-pointer"
-            />
+              className="w-full p-2 mt-3 rounded-md bg-blue-500  text-white cursor-pointer"
+            >
+              Create Project
+            </button>
           ) : (
-            <input
-              value="Create Project"
+            <button
               disabled={true}
-              className="w-full p-2 rounded-md bg-gray-400y cursor-not-allowed text-center"
-            />
+              className="w-full p-2 mt-3 rounded-md bg-gray-200 cursor-not-allowed text-center"
+            >
+              Create Project
+            </button>
           )}
         </form>
       </div>
