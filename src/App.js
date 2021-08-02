@@ -1,8 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Login, Signup } from "../src/Pages/index";
+import { Login, Signup, Home, Board } from "../src/Pages/index";
 import { Header, PrivateRoute } from "./Components/index";
-import { Home } from "./Pages/Home/Home";
 function App() {
   return (
     <div className="App">
@@ -11,6 +10,7 @@ function App() {
           <Header />
           <Routes>
             <PrivateRoute path="/" element={<Home />} />
+            <PrivateRoute path="/board/:boardId" element={<Board />} />
           </Routes>
         </div>
         <Route path="/login" element={<Login />} />
