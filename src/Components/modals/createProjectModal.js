@@ -6,7 +6,8 @@ import team from "../../assets/team.svg";
 import { useAuth } from "../../Context/AuthProvider";
 import axios from "axios";
 import { backendUrl } from "../../util/constant";
-const CreateProjectModal = ({ setShowModal, addProject }) => {
+
+export const CreateProjectModal = ({ setShowModal, addProject }) => {
   useEffect(blurHandler(setShowModal), []);
   const { user } = useAuth();
   const [projectTitle, setProjectTitle] = useState("");
@@ -88,5 +89,3 @@ CreateProjectModal.propTypes = {
   setShowModal: PropTypes.func,
   addProject: PropTypes.func,
 };
-
-export default CreateProjectModal;
