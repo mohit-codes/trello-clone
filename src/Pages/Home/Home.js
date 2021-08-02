@@ -1,13 +1,17 @@
 import React, { useState } from "react";
-import CreateProjectModal from "../../Components/modals/createProjectModal";
+import { CreateProjectModal, CreateBoard } from "../../Components";
 import { useAxiosGet } from "../../hooks/useAxiosGet";
-import CreateBoard from "../../Components/modals/createboard";
+import { useAuth } from "../../Context/AuthProvider";
+import { Link } from "react-router-dom";
 export const Home = () => {
   const [showAddProjectModal, setshowAddProjectModal] = useState(false);
   const [showAddBoardModal, setshowAddBoardModal] = useState(false);
-
-  const { addItem: addProject, data: projects } = useAxiosGet("projects");
-  const { addItem: addBoard, data: boards } = useAxiosGet("boards");
+  const { user } = useAuth();
+  const { addItem: addProject, data: projects } = useAxiosGet(
+    "projects",
+    user._id
+  );
+  const { addItem: addBoard, data: boards } = useAxiosGet("boards", user._id);
   return (
     <>
       <div className="flex-1 min-w-full bg-bggray">
@@ -20,14 +24,13 @@ export const Home = () => {
               </span>
             </div>
             <div className="flex flex-wrap">
-              {boards?.map((board, index) => {
+              {boards?.map(({ _id, title }, index) => {
                 return (
-                  <div
-                    key={index}
-                    className="p-2 w-60 h-32 mr-5 mt-6 border-2 border-black  hover:shadow-lg cursor-pointer"
-                  >
-                    {board.title}
-                  </div>
+                  <Link key={index} to={`/board/${_id}`} state={{ title }}>
+                    <div className="p-2 w-60 h-32 mr-5 mt-6 border-2 border-black  hover:shadow-lg cursor-pointer">
+                      {title}
+                    </div>
+                  </Link>
                 );
               })}
               {showAddBoardModal ? (
