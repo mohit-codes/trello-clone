@@ -2,11 +2,20 @@
 
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../Context/AuthProvider";
 import { backendUrl } from "../util/constant";
 
-export const useAxiosGet = (path) => {
-  const { user } = useAuth();
+function getPropertyName(path) {
+  if (
+    path === "boards/lists" ||
+    path === "lists/cards" ||
+    path === "cards/comments"
+  ) {
+    return path.split("/")[1];
+  }
+  return path;
+}
+
+export const useAxiosGet = (path, id) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -15,10 +24,10 @@ export const useAxiosGet = (path) => {
     let unmounted = false;
     const fetch = async () => {
       try {
-        const url = `${backendUrl}/${path}/${user._id}`;
+        const url = `${backendUrl}/${path}/${id}`;
         const res = await axios.get(url);
         if (!unmounted) {
-          setData(res.data[`${path}`]);
+          setData(res.data[getPropertyName(path)]);
           setLoading(false);
         }
       } catch (err) {
