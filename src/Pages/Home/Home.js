@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { CreateProjectModal, CreateBoard } from "../../Components";
+import { CreateProjectModal, CreateBoard, BoardCard } from "../../Components";
 import { useAxiosGet } from "../../hooks/useAxiosGet";
 import { useAuth } from "../../Context/AuthProvider";
-import { Link } from "react-router-dom";
 export const Home = () => {
   const [showAddProjectModal, setshowAddProjectModal] = useState(false);
   const [showAddBoardModal, setshowAddBoardModal] = useState(false);
@@ -14,23 +13,19 @@ export const Home = () => {
   const { addItem: addBoard, data: boards } = useAxiosGet("boards", user._id);
   return (
     <>
-      <div className="flex-1 min-w-full bg-bggray">
+      <div className="flex-1 min-w-full bg-gray-700 text-white">
         <section className="space-y-5 px-10 py-5">
           <div className="">
             <div>
               <i className="fa fa-user-o text-lg mr-3" />
-              <span className="text-xl text-black font-medium">
-                Personal Boards
-              </span>
+              <span className="text-xl  font-medium">Personal Boards</span>
             </div>
             <div className="flex flex-wrap">
-              {boards?.map(({ _id, title }, index) => {
+              {boards?.map((board, index) => {
                 return (
-                  <Link key={index} to={`/board/${_id}`} state={{ title }}>
-                    <div className="p-2 w-60 h-32 mr-5 mt-6 border-2 border-black  hover:shadow-lg cursor-pointer">
-                      {title}
-                    </div>
-                  </Link>
+                  <div key={index}>
+                    <BoardCard object={board} to="board" />
+                  </div>
                 );
               })}
               {showAddBoardModal ? (
@@ -51,18 +46,13 @@ export const Home = () => {
           <div className="">
             <div>
               <i className="fa fa-users fa-outlined text-lg mr-3" />
-              <span className="text-xl text-black font-medium">
-                Teams/Projects
-              </span>
+              <span className="text-xl font-medium">Teams/Projects</span>
             </div>
             <div className="flex flex-wrap">
               {projects?.map((project, index) => {
                 return (
-                  <div
-                    key={index}
-                    className="p-2 w-60 h-32 mr-5 mt-6 border-2 border-black  hover:shadow-lg cursor-pointer"
-                  >
-                    {project.title}
+                  <div key={index}>
+                    <BoardCard object={project} to="project" />
                   </div>
                 );
               })}
