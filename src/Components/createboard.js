@@ -22,7 +22,7 @@ export function CreateBoard({ setShowModal, addBoard }) {
     <div className="w-60 h-32 mt-6 p-2 border-2 bg-gray-100 border-black ">
       <form className="space-y-2" onSubmit={(e) => submitHandler(e)}>
         <div className="flex justify-between">
-          <span> Board Title</span>
+          <span className="text-black"> Board Title</span>
           <i
             title="close"
             className="fa fa-times font-thin cursor-pointer"
@@ -30,26 +30,21 @@ export function CreateBoard({ setShowModal, addBoard }) {
           ></i>
         </div>
         <input
-          className="focus:border-blue-600 border-2  border-gray-400 outline-none w-full"
+          className="focus:border-blue-600 border-2 text-black  border-gray-400 outline-none w-full"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        {title.trim() !== "" ? (
-          <button
-            type="submit"
-            className="px-3 py-1 bg-blue-500 rounded-md text-white cursor-pointer"
-          >
-            Create
-          </button>
-        ) : (
-          <button
-            type="submit"
-            disabled={true}
-            className="px-3 py-1 bg-gray-300  rounded-md text-black cursor-not-allowed"
-          >
-            Create
-          </button>
-        )}
+        <button
+          type="submit"
+          disabled={title.trim() === ""}
+          className={`px-3 py-1 rounded-md ${
+            title.trim() !== ""
+              ? "bg-blue-500  text-white cursor-pointer"
+              : " bg-gray-300 text-black cursor-not-allowed"
+          }`}
+        >
+          Create
+        </button>
       </form>
     </div>
   );
