@@ -5,10 +5,11 @@ import { useAuth } from "../Context/AuthProvider";
 import logo from "../assets/logo2.png";
 
 export const Header = () => {
+  const navigate = useNavigate();
   const { user, logout } = useAuth();
   return (
     <>
-      <nav className="pl-4 md:p-0 flex z-10 h-14 justify-between items-center">
+      <nav className="pl-4 md:p-0 flex z-10 h-14 justify-between items-center rounded-full">
         <div className="hidden md:flex h-10 items-center ml-10">
           <i className="fa fa-search text-gray-400"></i>
           <input
@@ -20,7 +21,7 @@ export const Header = () => {
         <div
           className="cursor-pointer"
           onClick={() => {
-            useNavigate("/");
+            navigate("/");
           }}
         >
           <img className="h-10 " src={logo} />
