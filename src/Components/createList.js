@@ -5,9 +5,10 @@ import axios from "axios";
 
 export const CreateList = ({ setshowCreateList, boardId, addList }) => {
   const [title, setTitle] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const submitHandler = async (e) => {
     e.preventDefault();
+    setLoading(true);
     setTitle("");
     const { data: data } = await axios.post(`${backendUrl}/lists/create`, {
       title: title,
@@ -15,6 +16,7 @@ export const CreateList = ({ setshowCreateList, boardId, addList }) => {
     });
     addList(data.list);
     setshowCreateList(false);
+    setLoading("false");
   };
   return (
     <>
@@ -30,22 +32,18 @@ export const CreateList = ({ setshowCreateList, boardId, addList }) => {
             />
           </div>
           <div className="flex items-center mt-3">
-            {title.trim() !== "" ? (
-              <button
-                type="submit"
-                className="px-3 py-1 bg-blue-500 rounded-md text-white cursor-pointer"
-              >
-                Add
-              </button>
-            ) : (
-              <button
-                type="submit"
-                disabled={true}
-                className="px-3 py-1 bg-gray-200 rounded-md text-black cursor-not-allowed "
-              >
-                Add
-              </button>
-            )}
+            <button
+              type="submit"
+              disabled={title.trim() === ""}
+              className={`px-3 py-1 rounded-md ${
+                title.trim() !== ""
+                  ? "bg-blue-500 cursor-pointer"
+                  : "bg-gray-200 text-black cursor-not-allowed"
+              }`}
+            >
+              {loading ? "Adding..." : "Add"}
+            </button>
+
             <i
               title="close"
               className="fa fa-times ml-2 font-thin text-2xl cursor-pointer"
