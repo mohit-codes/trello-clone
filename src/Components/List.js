@@ -2,32 +2,74 @@
 import React, { useState } from "react";
 import { PropTypes } from "prop-types";
 import { useAxiosGet } from "../hooks/useAxiosGet";
-export const List = ({ list }) => {
+import { CreateCard } from "./index";
+import { axiosDelete } from "../util/axiosDelete";
+
+export const List = ({ list, removeList }) => {
   const [showListEditOptions, setshowListEditOptions] = useState("");
+  const [showCreateCard, setShowCreateCard] = useState(false);
   const { data: cards, addItem: addCard } = useAxiosGet(
     "lists/cards",
     list._id
   );
+  const deleteHandler = async (event) => {
+    event.preventDefault();
+    await axiosDelete("lists", list._id);
+    removeList(list._id);
+  };
   return (
-    <div className="max-h-96 p-2 w-64 bg-blue-400 rounded-md border-2 border-black flex flex-col">
-      <div className="flex items-center justify-between">
+    <div className=" p-2 w-64 h-auto space-y-3 bg-blue-400 rounded-md border-2 border-black flex flex-col">
+      <div className="flex items-center justify-between ">
         <p>{list.title}</p>
-        {showListEditOptions && (
-          <div className="fixed mt-6 w-10 h-10 bg-white"></div>
-        )}
-        <i
-          title="close"
-          className="fa fa-ellipsis-h ml-2 font-thin text-xl cursor-pointer"
-          onClick={() => setshowListEditOptions((state) => !state)}
-        ></i>
+        <div>
+          {showListEditOptions && (
+            <>
+              <i
+                title="edit"
+                className="fa fa-edit font-thin text-xl cursor-pointer"
+              ></i>
+              <i
+                title="delete"
+                className="fa fa-trash font-thin text-xl ml-2 cursor-pointer"
+                onClick={(event) => deleteHandler(event)}
+              ></i>
+            </>
+          )}
+          <i
+            title={showListEditOptions ? "close" : "options"}
+            className={`ml-2 font-thin text-xl cursor-pointer ${
+              showListEditOptions ? "fa fa-times" : "fa fa-ellipsis-h"
+            }`}
+            onClick={() => setshowListEditOptions((state) => !state)}
+          />
+        </div>
       </div>
       {cards?.map((card, index) => {
-        return <div key={index}>card.title</div>;
+        return (
+          <div key={index}>
+            <div className="px-3 py-2 h-20 rounded-md hover:shadow-lg cursor-pointer border-2 border-gray-700">
+              {card?.title}
+            </div>
+          </div>
+        );
       })}
-      <button className="mt-16 text hover:shadow-md py-2">Add Card +</button>
+      {showCreateCard && (
+        <CreateCard
+          listId={list._id}
+          setShowCreateCard={setShowCreateCard}
+          addCard={addCard}
+        />
+      )}
+      <button
+        onClick={() => setShowCreateCard(true)}
+        className="text-center py-2 border-2 border-gray-700 hover:shadow-lg"
+      >
+        Add Card +
+      </button>
     </div>
   );
 };
 List.propTypes = {
   list: PropTypes.object,
+  removeList: PropTypes.func,
 };
