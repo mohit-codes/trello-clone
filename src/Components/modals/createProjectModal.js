@@ -26,7 +26,7 @@ export const CreateProjectModal = ({ setShowModal, addProject }) => {
   };
 
   return (
-    <div className="fixed z-20 bg-white flex rounded-sm center-modal w-80 lg:max-w-900 lg:w-800 max-h-96">
+    <div className="fixed z-20 text-black bg-white flex rounded-sm center-modal w-80 lg:max-w-900 lg:w-800 max-h-96">
       <div className="p-7">
         <p className="font-bold md:text-xl ">Start a Project</p>
         <p className="text-gray-500 leading-5">
@@ -56,21 +56,17 @@ export const CreateProjectModal = ({ setShowModal, addProject }) => {
               rows="4"
             ></textarea>
           </div>
-          {projectTitle.trim() !== "" ? (
-            <button
-              type="submit"
-              className="w-full p-2 mt-3 rounded-md bg-blue-500  text-white cursor-pointer"
-            >
-              Create Project
-            </button>
-          ) : (
-            <button
-              disabled={true}
-              className="w-full p-2 mt-3 rounded-md bg-gray-200 cursor-not-allowed text-center"
-            >
-              Create Project
-            </button>
-          )}
+          <button
+            type="submit"
+            disabled={projectTitle.trim() === ""}
+            className={`w-full p-2 mt-3 text-center rounded-md ${
+              projectTitle.trim() !== ""
+                ? "bg-blue-500  text-white cursor-pointer"
+                : "bg-gray-200 cursor-not-allowed "
+            }`}
+          >
+            Create Project
+          </button>
         </form>
       </div>
       <div className="hidden lg:flex  ">
