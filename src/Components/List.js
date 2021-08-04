@@ -18,7 +18,7 @@ export const List = ({ list, removeList }) => {
     removeList(list._id);
   };
   return (
-    <div className=" p-2 w-64 h-auto space-y-3 bg-blue-400 rounded-md border-2 border-black flex flex-col">
+    <div className=" p-2 w-64 h-auto flex-shrink-0 space-y-3 bg-blue-400 rounded-md border-2 border-black flex flex-col">
       <div className="flex items-center justify-between ">
         <p>{list.title}</p>
         <div>
@@ -26,18 +26,18 @@ export const List = ({ list, removeList }) => {
             <>
               <i
                 title="edit"
-                className="fa fa-edit font-thin text-xl cursor-pointer"
+                className="fa fa-edit  text-xl cursor-pointer"
               ></i>
               <i
                 title="delete"
-                className="fa fa-trash font-thin text-xl ml-2 cursor-pointer"
+                className="fa fa-trash  text-xl ml-2 cursor-pointer"
                 onClick={(event) => deleteHandler(event)}
               ></i>
             </>
           )}
           <i
             title={showListEditOptions ? "close" : "options"}
-            className={`ml-2 font-thin text-xl cursor-pointer ${
+            className={`ml-2  text-xl cursor-pointer ${
               showListEditOptions ? "fa fa-times" : "fa fa-ellipsis-h"
             }`}
             onClick={() => setshowListEditOptions((state) => !state)}
