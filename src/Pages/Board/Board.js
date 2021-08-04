@@ -3,30 +3,45 @@ import { useAxiosGet } from "../../hooks/useAxiosGet";
 import { PropTypes } from "prop-types";
 import { useLocation } from "react-router-dom";
 import { CreateList } from "../../Components/createList";
-import { List } from "../../Components";
+import { BoardMenuModal, List } from "../../Components";
 
 export const Board = () => {
   const {
     state: { object: currentBoard },
   } = useLocation();
-  const { _id: boardId } = currentBoard;
+
+  const [board, setBoard] = useState(currentBoard);
+  const { _id: boardId } = board;
   const [showCreateList, setshowCreateList] = useState(false);
   const {
     data: lists,
     addItem: addList,
     removeItem: removeList,
   } = useAxiosGet("boards/lists", boardId);
-  console.log(currentBoard);
+  const [showMenu, setShowMenu] = useState(false);
+
   return (
     <>
-      <div className=" overflow-y-scroll pt-5 px-10 h-full bg-gray-700 text-white">
-        <div className="flex">
+      <div className=" overflow-y-auto pt-5 px-10 h-full bg-gray-700 text-white">
+        <div className="flex flex-row">
           <p className="rounded-md max-w-min text-xl bg-gray-600 px-3 py-1">
-            {currentBoard.title}
+            {board.title}
           </p>
-          <p className="rounded-md max-w-min text-xl bg-gray-600 px-3 py-1"></p>
+          {board?.projectId === undefined && (
+            <p className="rounded-md ml-5 text-lg bg-gray-600 px-3 py-1">
+              <i className="fa fa-lock mr-3"></i>
+              <span>Private</span>
+            </p>
+          )}
+          <p
+            onClick={() => setShowMenu(true)}
+            className="py-1 ml-auto cursor-pointer"
+          >
+            <i className="fa fa-chevron-left mr-2"></i>
+            <span>Show Menu</span>
+          </p>
         </div>
-        <div className="flex flex-row overflow-x-scroll py-3 items-start space-x-3">
+        <div className="flex flex-row overflow-x-auto flex-shrink-0 py-3 items-start space-x-3">
           {lists?.map((list, index) => {
             return <List key={index} list={list} removeList={removeList} />;
           })}
@@ -46,6 +61,13 @@ export const Board = () => {
           )}
         </div>
       </div>
+      {showMenu && (
+        <BoardMenuModal
+          board={board}
+          setBoard={setBoard}
+          setShowMenu={setShowMenu}
+        />
+      )}
     </>
   );
 };
