@@ -25,7 +25,7 @@ export function CreateBoard({ setShowModal, addBoard }) {
           <span className="text-black"> Board Title</span>
           <i
             title="close"
-            className="fa fa-times font-thin cursor-pointer"
+            className="fa fa-times  cursor-pointer"
             onClick={() => setShowModal(false)}
           ></i>
         </div>
