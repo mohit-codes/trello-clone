@@ -46,7 +46,7 @@ export const CreateList = ({ setshowCreateList, boardId, addList }) => {
 
             <i
               title="close"
-              className="fa fa-times ml-2 font-thin text-2xl cursor-pointer"
+              className="fa fa-times ml-2 text-2xl cursor-pointer"
               onClick={() => setshowCreateList(false)}
             ></i>
           </div>
