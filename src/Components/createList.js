@@ -3,7 +3,7 @@ import { PropTypes } from "prop-types";
 import { backendUrl } from "../util/constant";
 import axios from "axios";
 
-export const CreateList = ({ setshowCreateList, boardId, addList }) => {
+export const CreateList = ({ setShowCreateList, boardId, addList }) => {
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const submitHandler = async (e) => {
@@ -15,7 +15,7 @@ export const CreateList = ({ setshowCreateList, boardId, addList }) => {
       boardId: boardId,
     });
     addList(data.list);
-    setshowCreateList(false);
+    setShowCreateList(false);
     setLoading("false");
   };
   return (
@@ -47,7 +47,7 @@ export const CreateList = ({ setshowCreateList, boardId, addList }) => {
             <i
               title="close"
               className="fa fa-times ml-2 text-2xl cursor-pointer"
-              onClick={() => setshowCreateList(false)}
+              onClick={() => setShowCreateList(false)}
             ></i>
           </div>
         </form>
@@ -57,7 +57,7 @@ export const CreateList = ({ setshowCreateList, boardId, addList }) => {
 };
 
 CreateList.propTypes = {
-  setshowCreateList: PropTypes.func,
+  setShowCreateList: PropTypes.func,
   boardId: PropTypes.string,
   addList: PropTypes.func,
 };
