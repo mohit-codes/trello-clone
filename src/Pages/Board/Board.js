@@ -12,7 +12,7 @@ export const Board = () => {
 
   const [board, setBoard] = useState(currentBoard);
   const { _id: boardId } = board;
-  const [showCreateList, setshowCreateList] = useState(false);
+  const [showCreateList, setShowCreateList] = useState(false);
   const {
     data: lists,
     addItem: addList,
@@ -24,7 +24,7 @@ export const Board = () => {
     <>
       <div className=" overflow-y-auto pt-5 px-10 h-full bg-gray-700 text-white">
         <div className="flex flex-row">
-          <p className="rounded-md max-w-min text-xl bg-gray-600 px-3 py-1">
+          <p className="rounded-md max-w-min text-xl bg-gray-600 px-3 py-1 font-semibold">
             {board.title}
           </p>
           {board?.projectId === undefined && (
@@ -47,13 +47,13 @@ export const Board = () => {
           })}
           {showCreateList ? (
             <CreateList
-              setshowCreateList={setshowCreateList}
+              setShowCreateList={setShowCreateList}
               boardId={boardId}
               addList={addList}
             />
           ) : (
             <button
-              onClick={() => setshowCreateList(true)}
+              onClick={() => setShowCreateList(true)}
               className="w-48 h-10 text-white bg-blue-400 rounded-md hover:shadow-md"
             >
               {" Add a list +"}
