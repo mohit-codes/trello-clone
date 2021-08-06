@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { blurHandler } from "../../util/blurHandler";
 import PropTypes from "prop-types";
-import formatDate from "../../util/formatDate";
 import { useAuth } from "../../Context/AuthProvider";
 import axios from "axios";
-import { backendUrl } from "../../util/constant";
+import {
+  backendUrl,
+  axiosDelete,
+  blurHandler,
+  formatDate,
+} from "../../util/index";
+import { useNavigate } from "react-router-dom";
 export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
   useEffect(blurHandler(setShowMenu), []);
+  const navigate = useNavigate();
   const { user } = useAuth();
   const [showTitleEdit, setShowTitleEdit] = useState(false);
   const [showDescriptionEdit, setShowDescriptionEdit] = useState(false);
@@ -15,6 +20,11 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
   const [newTitle, setNewTitle] = useState(board.title);
   const [newDescription, setNewDescription] = useState(board.description);
   const [loading, setLoading] = useState(false);
+  const deleteHandler = async (e) => {
+    e.preventDefault();
+    await axiosDelete("boards", board._id);
+    navigate("/", true);
+  };
   const editHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -38,7 +48,7 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
             onClick={() => setShowMenu(false)}
           />
         </div>
-        <div className="py-3">
+        <div className="py-3 px-2">
           <p>
             <i className="fa fa-calendar text-lg mr-3" />
             <span className="font-medium">Created on </span>
@@ -73,22 +83,24 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
                     value={newTitle}
                     onChange={({ target }) => setNewTitle(target.value)}
                   />
-                  <button
-                    type="submit"
-                    disabled={newTitle === board.title}
-                    className={`py-1 px-2 ${
-                      newTitle !== board.title
-                        ? "bg-blue-400 cursor-pointer"
-                        : "bg-gray-300 cursor-not-allowed"
-                    }`}
-                  >
-                    {loading ? "Saving..." : "Save"}
-                  </button>
-                  <i
-                    title="close"
-                    className="fa fa-times  cursor-pointer"
-                    onClick={() => setShowTitleEdit(false)}
-                  ></i>
+                  <div className="mt-2">
+                    <button
+                      type="submit"
+                      disabled={newTitle === board.title}
+                      className={`py-1 px-2 rounded-md ${
+                        newTitle !== board.title
+                          ? "bg-blue-400 cursor-pointer hover:shadow-md text-white"
+                          : "bg-gray-300 cursor-not-allowed"
+                      }`}
+                    >
+                      {loading ? "Saving..." : "Save"}
+                    </button>
+                    <i
+                      title="close"
+                      className="fa fa-times ml-3 cursor-pointer"
+                      onClick={() => setShowTitleEdit(false)}
+                    ></i>
+                  </div>
                 </form>
               )}
             </div>
@@ -114,28 +126,33 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
                     value={newDescription}
                     onChange={({ target }) => setNewDescription(target.value)}
                   />
-                  <button
-                    type="submit"
-                    disabled={newDescription === board.description}
-                    className={`py-1 px-2 ${
-                      newDescription !== board.description
-                        ? "bg-blue-400 cursor-pointer"
-                        : "bg-gray-300 cursor-not-allowed"
-                    }`}
-                  >
-                    {loading ? "Saving..." : "Save"}
-                  </button>
-                  <i
-                    title="close"
-                    className="fa fa-times  cursor-pointer"
-                    onClick={() => setShowDescriptionEdit(false)}
-                  ></i>
+                  <div className="mt-2">
+                    <button
+                      type="submit"
+                      disabled={newDescription === board.description}
+                      className={`py-1 px-2 rounded-md ${
+                        newDescription !== board.description
+                          ? "bg-blue-400 cursor-pointer hover:shadow-md text-white"
+                          : "bg-gray-300 cursor-not-allowed"
+                      }`}
+                    >
+                      {loading ? "Saving..." : "Save"}
+                    </button>
+                    <i
+                      title="close"
+                      className="fa fa-times ml-3 cursor-pointer"
+                      onClick={() => setShowDescriptionEdit(false)}
+                    ></i>
+                  </div>
                 </form>
               )}
             </div>
           </div>
           <div className="flex w-full">
-            <button className="text-center text-red-600 border-2 border-red-600 rounded-md p-2 ml-auto hover:shadow-md">
+            <button
+              onClick={(e) => deleteHandler(e)}
+              className="text-center text-red-600 border-2 border-red-600 rounded-md p-2 ml-auto hover:shadow-md"
+            >
               Delete Board <i className="fas fa-trash"></i>
             </button>
           </div>
