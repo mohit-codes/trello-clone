@@ -5,16 +5,18 @@ import axios from "axios";
 import { backendUrl } from "../util/constant";
 export function CreateBoard({ setShowModal, addBoard }) {
   const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const submitHandler = async (e) => {
     e.preventDefault();
     setTitle("");
+    setLoading(true);
     const { data: data } = await axios.post(`${backendUrl}/boards/create`, {
       title: title,
       userId: user._id,
       isPersonal: true,
     });
-
+    setLoading("false");
     addBoard(data.board);
     setShowModal(false);
   };
@@ -43,7 +45,7 @@ export function CreateBoard({ setShowModal, addBoard }) {
               : " bg-gray-300 text-black cursor-not-allowed"
           }`}
         >
-          Create
+          {loading ? "Creating..." : "Create"}
         </button>
       </form>
     </div>
