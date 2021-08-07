@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { CardModal } from "./index";
 
-export const Card = ({ list, card }) => {
+export const Card = ({ list, card, removeCard }) => {
   const [showCardModal, setShowCardModal] = useState(false);
   const [cardState, setCardState] = useState(card);
   return (
     <>
       <div
         onClick={() => setShowCardModal(true)}
-        className="px-3 py-2 h-20 rounded-md hover:shadow-lg cursor-pointer border-2 border-gray-700"
+        className="px-3 py-2 break-words min-h-5rem rounded-md hover:shadow-lg cursor-pointer border-2 border-gray-700"
       >
         {cardState.title}
       </div>
@@ -19,6 +19,7 @@ export const Card = ({ list, card }) => {
           card={cardState}
           setCardState={setCardState}
           setShowCardModal={setShowCardModal}
+          removeCard={removeCard}
         />
       )}
     </>
@@ -28,4 +29,5 @@ Card.propTypes = {
   card: PropTypes.object,
   setShowCardModal: PropTypes.func,
   list: PropTypes.object,
+  removeCard: PropTypes.func,
 };
