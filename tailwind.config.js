@@ -13,6 +13,7 @@ module.exports = {
         minus1: "-1",
         4: "4",
       },
+      minHeight: { "5rem": "5rem" },
       height: {
         300: "300px",
         600: "600px",
