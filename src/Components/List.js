@@ -12,10 +12,11 @@ export const List = ({ list, removeList }) => {
   const [showCreateCard, setShowCreateCard] = useState(false);
 
   const [newTitle, setNewTitle] = useState(list.title);
-  const { data: cards, addItem: addCard } = useAxiosGet(
-    "lists/cards",
-    listState._id
-  );
+  const {
+    data: cards,
+    addItem: addCard,
+    removeItem: removeCard,
+  } = useAxiosGet("lists/cards", listState._id);
   const editHandler = async (e) => {
     e.preventDefault();
     await axios.put(`${backendUrl}/lists/${list._id}`, {
@@ -61,7 +62,14 @@ export const List = ({ list, removeList }) => {
         </div>
       </div>
       {cards?.map((card, index) => {
-        return <Card key={index} list={listState} card={card} />;
+        return (
+          <Card
+            key={index}
+            list={listState}
+            removeCard={removeCard}
+            card={card}
+          />
+        );
       })}
       {showCreateCard && (
         <CreateCard
