@@ -30,3 +30,9 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+::-webkit-scrollbar {
+  /* width: 12px; */
+  display: none;
+  /* background-color: #f5f5f5; */
+}
