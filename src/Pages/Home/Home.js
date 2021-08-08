@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { CreateProjectModal, CreateBoard, BoardCard } from "../../Components";
+import {
+  CreateProjectModal,
+  CreateBoard,
+  BoardCard,
+  JoinProjectModal,
+} from "../../Components";
 import { useAxiosGet } from "../../hooks/useAxiosGet";
 import { useAuth } from "../../Context/AuthProvider";
 export const Home = () => {
   const [showAddProjectModal, setshowAddProjectModal] = useState(false);
+  const [showJoinProjectModal, setShowJoinProjectModal] = useState(false);
   const [showAddBoardModal, setshowAddBoardModal] = useState(false);
   const { user } = useAuth();
   const { addItem: addProject, data: projects } = useAxiosGet(
@@ -56,13 +62,24 @@ export const Home = () => {
                   </div>
                 );
               })}
-              <div
-                onClick={() => {
-                  setshowAddProjectModal(true);
-                }}
-                className="w-60 h-32 text-center py-12 mt-6 bg-gray-200 text-gray-500 cursor-pointer"
-              >
-                Create new project...
+              <div className="w-60 h-32 text-center py-12 mt-6 bg-gray-200 text-gray-500 cursor-pointer">
+                <span
+                  onClick={() => {
+                    setshowAddProjectModal(true);
+                  }}
+                  className="hover:text-black"
+                >
+                  Create New
+                </span>
+                {"  |  "}
+                <span
+                  className="hover:text-black"
+                  onClick={() => {
+                    setShowJoinProjectModal(true);
+                  }}
+                >
+                  Join Existing
+                </span>
               </div>
             </div>
           </div>
@@ -70,6 +87,12 @@ export const Home = () => {
         {showAddProjectModal && (
           <CreateProjectModal
             setShowModal={setshowAddProjectModal}
+            addProject={addProject}
+          />
+        )}
+        {showJoinProjectModal && (
+          <JoinProjectModal
+            setShowJoinProjectModal={setShowJoinProjectModal}
             addProject={addProject}
           />
         )}
