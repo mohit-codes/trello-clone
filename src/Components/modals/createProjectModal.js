@@ -27,8 +27,8 @@ export const CreateProjectModal = ({ setShowModal, addProject }) => {
 
   return (
     <div className="fixed z-20 text-black bg-white flex rounded-sm center-modal w-80 lg:max-w-900 lg:w-800 max-h-96">
-      <div className="p-7">
-        <p className="font-bold md:text-xl ">Start a Project</p>
+      <div className="px-7 pb-7 pt-3">
+        <p className="font-bold md:text-xl mb-2">Start a Project</p>
         <p className="text-gray-500 leading-5">
           Boost your productivity by making it easier for everyone to access
           boards in one location.
@@ -72,7 +72,7 @@ export const CreateProjectModal = ({ setShowModal, addProject }) => {
       <div className="hidden lg:flex  ">
         <i
           title="close"
-          className="fa fa-times font-thin absolute top-5 right-5 cursor-pointer"
+          className="fas fa-times text-xl absolute top-2 right-4 cursor-pointer"
           onClick={() => setShowModal(false)}
         ></i>
         <img src={team} className="w-2/3 mx-auto" />
