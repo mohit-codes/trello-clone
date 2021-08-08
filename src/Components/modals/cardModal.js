@@ -1,16 +1,10 @@
-/* eslint-disable no-unused-vars */
-
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import {
-  axiosDelete,
-  backendUrl,
-  blurHandler,
-  formatDate,
-} from "../../util/index";
+import { axiosDelete, backendUrl, blurHandler } from "../../util/index";
 import axios from "axios";
 import { AddComment } from "../addComment";
 import { useAxiosGet } from "../../hooks/useAxiosGet";
+import { Comment } from "../comment";
 
 export const CardModal = ({
   list,
@@ -24,6 +18,7 @@ export const CardModal = ({
   const [newTitle, setNewTitle] = useState(card.title);
   const [showDescriptionEdit, setShowDescriptionEdit] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const editHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -35,16 +30,26 @@ export const CardModal = ({
     setShowDescriptionEdit(false);
     setLoading(false);
   };
-  const { data: comments, addItem: addCommentItem } = useAxiosGet(
-    "cards/comments",
-    card._id
-  );
-  const deleteHandler = async (e) => {
+
+  const {
+    data: comments,
+    addItem: addCommentItem,
+    removeItem: removeComment,
+  } = useAxiosGet("cards/comments", card._id);
+
+  const cardDeleteHandler = async (e) => {
     e.preventDefault();
     await axiosDelete("cards", card._id);
     setShowCardModal(false);
     removeCard(card._id);
   };
+
+  const commentDeleteHandler = async (e, id) => {
+    e.preventDefault();
+    await axiosDelete("comments", id);
+    removeComment(id);
+  };
+
   return (
     <div className="px-5 py-5 w-600 h-500 center-modal overflow-y-scroll  fixed z-20 rounded-md cursor-default bg-white text-black">
       <div className="flex justify-between">
@@ -124,30 +129,18 @@ export const CardModal = ({
         <span className="text-gray-400 ml-3">Comments</span>
         <div className="ml-6 space-y-2 w-80">
           {comments?.map((comment, index) => (
-            <div key={index} className="py-1">
-              <div className="flex">
-                <div className=" text-gray-300 mr-2 bg-yellow-200 w-10 h-10">
-                  {/* <i className="far fa-user  text-4xl"></i> */}
-                </div>
-                <div>
-                  <p className="text-black font-medium">{comment.author}</p>
-                  <p className="text-xs text-gray-400">
-                    {formatDate(comment.createdAt)}
-                  </p>
-                </div>
-                <div className=" ml-auto">
-                  <p className="text-sm">Edit | Delete</p>
-                </div>
-              </div>
-              <p className="text-sm mt-2">{comment.content}</p>
-            </div>
+            <Comment
+              comment={comment}
+              commentDeleteHandler={commentDeleteHandler}
+              key={index}
+            />
           ))}
         </div>
       </div>
       <div className="fixed right-16 top-14">
         <p>Actions</p>
         <button
-          onClick={(e) => deleteHandler(e)}
+          onClick={(e) => cardDeleteHandler(e)}
           className="text-center mt-1 text-red-600  text-xs  rounded-md  ml-auto hover:underline"
         >
           <i className="fas fa-trash"></i> Delete Card
