@@ -10,6 +10,7 @@ export const AddComment = ({ addCommentItem, card }) => {
   const [loading, setLoading] = useState(false);
   const addCommentHandler = async (e) => {
     e.preventDefault();
+    setCommentContent("");
     setLoading(true);
     const { data: data } = await axios.post(`${backendUrl}/comments/create`, {
       content: commentContent,
