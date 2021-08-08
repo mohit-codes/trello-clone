@@ -9,22 +9,31 @@ import {
   formatDate,
 } from "../../util/index";
 import { useNavigate } from "react-router-dom";
+
 export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
   useEffect(blurHandler(setShowMenu), []);
+
   const navigate = useNavigate();
+
   const { user } = useAuth();
   const [showTitleEdit, setShowTitleEdit] = useState(false);
   const [showDescriptionEdit, setShowDescriptionEdit] = useState(false);
+
   const date = formatDate(board.createdAt);
+
   const isAdmin = user._id === board.userId;
+
   const [newTitle, setNewTitle] = useState(board.title);
   const [newDescription, setNewDescription] = useState(board.description);
+
   const [loading, setLoading] = useState(false);
+
   const deleteHandler = async (e) => {
     e.preventDefault();
     await axiosDelete("boards", board._id);
     navigate("/", true);
   };
+
   const editHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -37,6 +46,7 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
     setShowTitleEdit(false);
     setLoading(false);
   };
+
   return (
     <>
       <div className="fixed z-20 text-black px-3 py-1 bg-white flex flex-col rounded-sm center-modal w-80 lg:min-h-72 lg:max-w-900 lg:w-500 max-h-s500">
