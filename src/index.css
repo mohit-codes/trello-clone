@@ -12,6 +12,10 @@
   height: 100vh;
 }
 
+.project-tabs {
+  @apply lg:w-32 md:w-32 font-bold h-10 text-center cursor-pointer p-2 rounded-sm;
+}
+
 .fa-outlined {
   -webkit-text-fill-color: transparent !important;
   -webkit-text-stroke-width: 1px !important;
