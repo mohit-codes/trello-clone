@@ -3,7 +3,7 @@ import { PropTypes } from "prop-types";
 import { useAuth } from "../Context/AuthProvider";
 import axios from "axios";
 import { backendUrl } from "../util/constant";
-export function CreateBoard({ setShowModal, addBoard }) {
+export function CreateBoard({ setShowModal, addBoard, projectId }) {
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
@@ -11,11 +11,26 @@ export function CreateBoard({ setShowModal, addBoard }) {
     e.preventDefault();
     setTitle("");
     setLoading(true);
-    const { data: data } = await axios.post(`${backendUrl}/boards/create`, {
-      title: title,
-      userId: user._id,
-      isPersonal: true,
-    });
+
+    const reqBody =
+      projectId === null
+        ? {
+            title: title,
+            userId: user._id,
+            isPersonal: true,
+          }
+        : {
+            title: title,
+            projectId: projectId,
+            isPersonal: false,
+            userId: user._id,
+          };
+
+    const { data: data } = await axios.post(
+      `${backendUrl}/boards/create`,
+      reqBody
+    );
+
     setLoading("false");
     addBoard(data.board);
     setShowModal(false);
@@ -54,4 +69,5 @@ export function CreateBoard({ setShowModal, addBoard }) {
 CreateBoard.propTypes = {
   setShowModal: PropTypes.func,
   addBoard: PropTypes.func,
+  projectId: PropTypes.string,
 };
