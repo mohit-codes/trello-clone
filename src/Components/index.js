@@ -11,3 +11,4 @@ export { Card } from "./card";
 export { CreateCard } from "./createCard";
 export { CardModal } from "./modals/cardModal";
 export { AddComment } from "./addComment";
+export { ProjectBoards } from "./projectBoards";
