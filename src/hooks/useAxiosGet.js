@@ -5,11 +5,7 @@ import React, { useEffect, useState } from "react";
 import { backendUrl } from "../util/constant";
 
 function getPropertyName(path) {
-  if (
-    path === "boards/lists" ||
-    path === "lists/cards" ||
-    path === "cards/comments"
-  ) {
+  if (path.includes("/")) {
     return path.split("/")[1];
   }
   return path;
