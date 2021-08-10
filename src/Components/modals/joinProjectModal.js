@@ -1,22 +1,36 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { blurHandler } from "../../util";
+import { backendUrl, blurHandler } from "../../util";
 import axios from "axios";
+import { useAuth } from "../../Context/AuthProvider";
 
 export const JoinProjectModal = ({ setShowJoinProjectModal, addProject }) => {
   useEffect(blurHandler(setShowJoinProjectModal), []);
   const [projectCode, setProjectCode] = useState("");
   const [loading, setLoading] = useState(false);
-  const joinHandler = (e) => {
-    // axios.post('{')
+  const [error, setError] = useState("");
+  const { user } = useAuth();
+  const joinHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+    const { data: data } = await axios.post(`${backendUrl}/projects/join`, {
+      projectCode: projectCode,
+      userId: user._id,
+    });
+    if (data.success) {
+      setProjectCode("");
+      let project = data.project;
+      project.teamMembers.push({ memberId: user._id, username: user.username });
+      addProject(project);
+      setShowJoinProjectModal(false);
+    } else {
+      setError(data.message);
+    }
     setLoading(false);
   };
   return (
-    <div className="z-20 fixed center-modal rounded-md w-96 h-96 bg-white text-black">
+    <div className="z-20 fixed center-modal rounded-md w-96  bg-white text-black">
       {" "}
       <div className="p-4">
         <p className="font-bold text-xl">Join Project</p>
@@ -27,12 +41,18 @@ export const JoinProjectModal = ({ setShowJoinProjectModal, addProject }) => {
         <div className="mt-5">
           {" "}
           <p className="font-medium mb-2">Enter Project Code</p>{" "}
+          {error !== "" && <p className="text-red-500 my-2">{error}</p>}
           <form onSubmit={(e) => joinHandler(e)}>
             {" "}
             <input
-              className=" p-2 w-full border-2"
+              autoFocus
+              type="number"
+              className="no-spin p-2 w-full border-2"
               value={projectCode}
-              onChange={(e) => setProjectCode(e.target.value)}
+              onChange={(e) => {
+                setError("");
+                setProjectCode(e.target.value);
+              }}
             />
             <button
               type="submit"
