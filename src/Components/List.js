@@ -61,10 +61,10 @@ export const List = ({ list, removeList }) => {
           />
         </div>
       </div>
-      {cards?.map((card, index) => {
+      {cards?.map((card) => {
         return (
           <Card
-            key={index}
+            key={card._id}
             list={listState}
             removeCard={removeCard}
             card={card}

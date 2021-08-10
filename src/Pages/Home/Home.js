@@ -27,9 +27,9 @@ export const Home = () => {
               <span className="text-xl  font-medium">Personal Boards</span>
             </div>
             <div className="flex flex-wrap">
-              {boards?.map((board, index) => {
+              {boards?.map((board) => {
                 return (
-                  <div key={index}>
+                  <div key={board._id}>
                     <BoardCard object={board} to="board" />
                   </div>
                 );
@@ -55,9 +55,9 @@ export const Home = () => {
               <span className="text-xl font-medium">Teams/Projects</span>
             </div>
             <div className="flex flex-wrap">
-              {projects?.map((project, index) => {
+              {projects?.map((project) => {
                 return (
-                  <div key={index}>
+                  <div key={project._id}>
                     <BoardCard object={project} to="project" />
                   </div>
                 );

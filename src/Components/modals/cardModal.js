@@ -128,11 +128,11 @@ export const CardModal = ({
         <i className="fas fa-stream text-gray-400" />
         <span className="text-gray-400 ml-3">Comments</span>
         <div className="ml-6 space-y-2 w-80">
-          {comments?.map((comment, index) => (
+          {comments?.map((comment) => (
             <Comment
               comment={comment}
               commentDeleteHandler={commentDeleteHandler}
-              key={index}
+              key={comment._id}
             />
           ))}
         </div>
