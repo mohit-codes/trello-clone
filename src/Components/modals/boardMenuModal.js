@@ -10,7 +10,12 @@ import {
 } from "../../util/index";
 import { useNavigate } from "react-router-dom";
 
-export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
+export const BoardMenuModal = ({
+  board,
+  setBoard,
+  setShowMenu,
+  projectAdmin,
+}) => {
   useEffect(blurHandler(setShowMenu), []);
 
   const navigate = useNavigate();
@@ -21,7 +26,7 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
 
   const date = formatDate(board.createdAt);
 
-  const isAdmin = user._id === board.userId;
+  const isAdmin = projectAdmin === undefined ? true : projectAdmin === user._id;
 
   const [newTitle, setNewTitle] = useState(board.title);
   const [newDescription, setNewDescription] = useState(board.description);
@@ -31,7 +36,7 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
   const deleteHandler = async (e) => {
     e.preventDefault();
     await axiosDelete("boards", board._id);
-    navigate("/", true);
+    navigate(-1);
   };
 
   const editHandler = async (e) => {
@@ -46,7 +51,6 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
     setShowTitleEdit(false);
     setLoading(false);
   };
-
   return (
     <>
       <div className="fixed z-20 text-black px-3 py-1 bg-white flex flex-col rounded-sm center-modal w-80 lg:min-h-72 lg:max-w-900 lg:w-500 max-h-s500">
@@ -64,12 +68,6 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
             <span className="font-medium">Created on </span>
             <span>{date}</span>
           </p>
-          {!isAdmin && (
-            <p>
-              <i className="fas fa-user-cog text-lg mr-2" />
-              <span>{`Admin ${board.userId}`}</span>
-            </p>
-          )}
           <div className="py-3 space-y-5">
             <div>
               <div className="flex justify-between w-60 mb-2">
@@ -77,8 +75,8 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
                   <i className="fas fa-thumbtack mr-2" /> Title
                 </span>
                 <span
-                  onClick={() => setShowTitleEdit(true)}
-                  className="  cursor-pointer"
+                  onClick={isAdmin ? () => setShowTitleEdit(true) : null}
+                  className={isAdmin ? "cursor-pointer" : "cursor-not-allowed"}
                 >
                   <i className="fas fa-edit " /> Edit
                 </span>
@@ -120,8 +118,8 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
                   <i className="fas fa-file-alt mr-2" /> Description
                 </span>
                 <span
-                  onClick={() => setShowDescriptionEdit(true)}
-                  className="cursor-pointer"
+                  onClick={isAdmin ? () => setShowDescriptionEdit(true) : null}
+                  className={isAdmin ? "cursor-pointer" : "cursor-not-allowed"}
                 >
                   <i className="fas fa-edit " /> Edit
                 </span>
@@ -148,6 +146,7 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
                     >
                       {loading ? "Saving..." : "Save"}
                     </button>
+
                     <i
                       title="close"
                       className="fa fa-times ml-3 cursor-pointer"
@@ -158,10 +157,14 @@ export const BoardMenuModal = ({ board, setBoard, setShowMenu }) => {
               )}
             </div>
           </div>
+
           <div className="flex w-full">
             <button
+              disabled={!isAdmin}
               onClick={(e) => deleteHandler(e)}
-              className="text-center text-red-600 border-2 border-red-600 rounded-md p-2 ml-auto hover:shadow-md"
+              className={`text-center text-red-600 border-2 border-red-600 rounded-md p-2 ml-auto hover:shadow-md ${
+                !isAdmin ? "cursor-not-allowed" : ""
+              }`}
             >
               Delete Board <i className="fas fa-trash"></i>
             </button>
@@ -175,4 +178,5 @@ BoardMenuModal.propTypes = {
   setShowMenu: PropTypes.func,
   board: PropTypes.object,
   setBoard: PropTypes.func,
+  projectAdmin: PropTypes.string,
 };
