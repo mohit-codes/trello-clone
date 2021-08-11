@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthProvider";
 import logo from "../assets/logo2.png";
@@ -10,21 +9,17 @@ export const Header = () => {
   return (
     <>
       <nav className="pl-4 md:p-0 flex z-10 h-14 justify-between items-center rounded-full">
-        <div className="hidden md:flex h-10 items-center ml-10">
-          <i className="fa fa-search text-gray-400"></i>
-          <input
-            className=" border-none outline-none px-2 py-1 "
-            type="text"
-            placeholder="Search Boards"
-          />
-        </div>
         <div
-          className="cursor-pointer"
           onClick={() => {
             navigate("/");
           }}
+          className="hidden md:flex text-gray-500 h-8 items-center rounded-md ml-11 hover:shadow-md cursor-pointer bg-gray-100 px-1"
         >
-          <img className="h-10 " src={logo} />
+          <i className="fa fa-trello mr-1"></i>
+          Boards
+        </div>
+        <div className="cursor-pointer">
+          <img className="h-8 " src={logo} />
         </div>
         <div className="space-x-10 mr-10">
           <span> Hello, {user?.username} </span>
