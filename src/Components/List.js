@@ -4,9 +4,9 @@ import { useAxiosGet } from "../hooks/useAxiosGet";
 import { CreateCard } from "./index";
 import { axiosDelete, backendUrl } from "../util/index";
 import axios from "axios";
-import { Card } from "./card";
+import { ListCard } from "./listCard";
 
-export const List = ({ list, removeList }) => {
+export const List = ({ list, removeList, projectAdmin }) => {
   const [listState, setListState] = useState(list);
   const [showListEditOptions, setshowListEditOptions] = useState("");
   const [showCreateCard, setShowCreateCard] = useState(false);
@@ -63,11 +63,12 @@ export const List = ({ list, removeList }) => {
       </div>
       {cards?.map((card) => {
         return (
-          <Card
+          <ListCard
             key={card._id}
             list={listState}
             removeCard={removeCard}
             card={card}
+            projectAdmin={projectAdmin}
           />
         );
       })}
@@ -91,4 +92,5 @@ List.propTypes = {
   list: PropTypes.object,
   removeList: PropTypes.func,
   setShowCreateList: PropTypes.func,
+  projectAdmin: PropTypes.string,
 };
