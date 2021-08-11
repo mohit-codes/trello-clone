@@ -7,13 +7,14 @@ export function CreateBoard({ setShowModal, addBoard, projectId }) {
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
+  console.log(projectId);
   const submitHandler = async (e) => {
     e.preventDefault();
     setTitle("");
     setLoading(true);
 
     const reqBody =
-      projectId === null
+      projectId === undefined
         ? {
             title: title,
             userId: user._id,
