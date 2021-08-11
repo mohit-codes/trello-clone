@@ -7,7 +7,7 @@ import { BoardMenuModal, List } from "../../Components";
 
 export const Board = () => {
   const {
-    state: { object: currentBoard },
+    state: { object: currentBoard, projectAdmin },
   } = useLocation();
 
   const [board, setBoard] = useState(currentBoard);
@@ -19,12 +19,11 @@ export const Board = () => {
     removeItem: removeList,
   } = useAxiosGet("boards/lists", boardId);
   const [showMenu, setShowMenu] = useState(false);
-
   return (
     <>
-      <div className=" overflow-y-auto pt-5 px-10 h-full bg-gray-700 text-white">
+      <div className="overflow-hidden  pt-5 px-10 h-full bg-gray-700 text-white">
         <div className="flex flex-row">
-          <p className="rounded-md max-w-min text-xl bg-gray-600 px-3 py-1 font-semibold">
+          <p className="rounded-md min-w-min text-xl bg-gray-600 px-3 py-1 font-semibold">
             {board.title}
           </p>
           {board?.projectId === undefined && (
@@ -41,9 +40,16 @@ export const Board = () => {
             <span>Show Menu</span>
           </p>
         </div>
-        <div className="flex flex-row overflow-x-auto flex-shrink-0 py-3 items-start space-x-3">
-          {lists?.map((list, index) => {
-            return <List key={index} list={list} removeList={removeList} />;
+        <div className="flex flex-row overflow-x-auto w-full py-3 items-start space-x-3">
+          {lists?.map((list) => {
+            return (
+              <List
+                key={list._id}
+                list={list}
+                removeList={removeList}
+                projectAdmin={projectAdmin}
+              />
+            );
           })}
           {showCreateList ? (
             <CreateList
@@ -66,6 +72,7 @@ export const Board = () => {
           board={board}
           setBoard={setBoard}
           setShowMenu={setShowMenu}
+          projectAdmin={projectAdmin}
         />
       )}
     </>

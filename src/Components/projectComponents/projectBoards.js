@@ -16,7 +16,11 @@ export const ProjectBoards = ({ project }) => {
         {boards?.map((board) => {
           return (
             <div key={board._id}>
-              <BoardCard object={board} to="board" />
+              <BoardCard
+                object={board}
+                to="board"
+                projectAdmin={project.adminId}
+              />
             </div>
           );
         })}
