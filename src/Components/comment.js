@@ -28,7 +28,9 @@ export const Comment = ({ comment, commentDeleteHandler }) => {
   return (
     <div className="py-1">
       <div className="flex">
-        <div className=" text-gray-300 mr-2 bg-yellow-200 w-10 h-10"></div>
+        <div className="py-2 mr-2 bg-gray-700 text-white text-xl text-center w-10 h-10">
+          {comment.author[0].toUpperCase()}
+        </div>
         <div>
           <p className="text-black font-medium">{comment.author}</p>
           <p className="text-xs text-gray-400">
