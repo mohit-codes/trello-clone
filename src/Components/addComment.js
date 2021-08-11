@@ -23,10 +23,10 @@ export const AddComment = ({ addCommentItem, card }) => {
   return (
     <div className="flex mt-5 w-52">
       <div>
-        <i className="far fa-comment text-gray-400 text-lg" />
+        <i className="far fa-comment  text-lg" />
       </div>
-      <form className="ml-4" onSubmit={(e) => addCommentHandler(e)}>
-        <p className="text-gray-400">
+      <form className="ml-3" onSubmit={(e) => addCommentHandler(e)}>
+        <p className="">
           <span className="">Add comment</span>
         </p>
         <textarea
