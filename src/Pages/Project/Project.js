@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import { ProjectBoards } from "../../Components";
+import { Members, ProjectBoards } from "../../Components";
 import ProjectSettings from "../../Components/projectComponents/projectSettings";
 import { useAuth } from "../../Context/AuthProvider";
 
@@ -33,7 +33,7 @@ export const Project = () => {
             {isAdmin && (
               <p
                 onClick={() => setSelectedTab(3)}
-                className="bg-gray-200 w-48 p-1 px-2 font-medium text-black rounded-sm"
+                className="bg-gray-200 w-48 p-1 px-2 font-medium text-black rounded-sm cursor-pointer"
               >
                 <i className="fas fa-pen mr-2 " /> Edit Project Profile
               </p>
@@ -68,26 +68,7 @@ export const Project = () => {
         </div>
       </div>
       {selectedTab === 1 && <ProjectBoards project={project} />}
-      {selectedTab === 2 && (
-        <div className="w-500 ml-auto mr-auto py-10">
-          <p className="font-semibold">
-            {`Team Members (${project.teamMembers.length})`}
-          </p>
-          <div className="mt-10 space-y-3">
-            {project.teamMembers.map((member) => (
-              <div key={member.memberId} className="flex items-start">
-                <div className=" text-gray-300 mr-2 bg-yellow-200 w-10 h-10"></div>
-                <div>
-                  <p className="text-black font-medium">{member.username}</p>
-                </div>
-                <div className="ml-auto bg-gray-200 py-1 px-2 text-gray-500 rounded-md">
-                  {project.adminId === member.memberId ? "Admin" : "Member"}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {selectedTab === 2 && <Members project={project} />}
       {selectedTab === 3 && (
         <div className="ml-auto mr-auto w-500 p-10">
           {isAdmin ? (
