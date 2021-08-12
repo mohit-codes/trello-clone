@@ -19,7 +19,7 @@ export const Header = () => {
           Boards
         </div>
         <div className="cursor-pointer">
-          <img className="h-8 " src={logo} />
+          <img className="h-7 my-2 md:my-0 md:h-8 " src={logo} />
         </div>
         <div className="space-x-10 mr-10">
           <span> Hello, {user?.username} </span>
