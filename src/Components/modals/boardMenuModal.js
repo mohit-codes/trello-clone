@@ -53,7 +53,7 @@ export const BoardMenuModal = ({
   };
   return (
     <>
-      <div className="fixed z-20 text-black px-3 py-1 bg-white flex flex-col rounded-sm center-modal w-80 lg:min-h-72 lg:max-w-900 lg:w-500 max-h-s500">
+      <div className="fixed z-20 text-black px-3 py-1 bg-white flex flex-col rounded-sm center-modal w-80 lg:min-h-72 lg:max-w-900 lg:w-600 max-h-500">
         <div className="border-b-2 w-full pb-1 py-1 border-gray-300">
           <span className="text-xl font-semibold">About This Board</span>
           <i
@@ -64,100 +64,109 @@ export const BoardMenuModal = ({
         </div>
         <div className="py-3 px-2">
           <p>
-            <i className="fa fa-calendar text-lg mr-3" />
+            <i className="far fa-calendar-alt text-lg mr-3 " />
             <span className="font-medium">Created on </span>
             <span>{date}</span>
           </p>
-          <div className="py-3 space-y-5">
-            <div>
-              <div className="flex justify-between w-60 mb-2">
-                <span className=" text-lg font-medium">
-                  <i className="fas fa-thumbtack mr-2" /> Title
-                </span>
-                <span
-                  onClick={isAdmin ? () => setShowTitleEdit(true) : null}
-                  className={isAdmin ? "cursor-pointer" : "cursor-not-allowed"}
-                >
-                  <i className="fas fa-edit " /> Edit
-                </span>
-              </div>
-              {!showTitleEdit ? (
-                <p>{board.title}</p>
-              ) : (
-                <form onSubmit={(e) => editHandler(e)}>
-                  <input
-                    type="text"
-                    className="border-2 p-1 border-black"
-                    value={newTitle}
-                    onChange={({ target }) => setNewTitle(target.value)}
-                  />
-                  <div className="mt-2">
-                    <button
-                      type="submit"
-                      disabled={newTitle === board.title}
-                      className={`py-1 px-2 rounded-md ${
-                        newTitle !== board.title
-                          ? "bg-blue-400 cursor-pointer hover:shadow-md text-white"
-                          : "bg-gray-300 cursor-not-allowed"
-                      }`}
-                    >
-                      {loading ? "Saving..." : "Save"}
-                    </button>
-                    <i
-                      title="close"
-                      className="fa fa-times ml-3 cursor-pointer"
-                      onClick={() => setShowTitleEdit(false)}
-                    ></i>
+          <form onSubmit={(e) => editHandler(e)}>
+            <div className="py-3 space-y-5 ">
+              <div>
+                <div className="flex justify-between w-60 mb-2">
+                  <span className=" text-lg font-medium">
+                    <i className="fa fa-thumbtack fa-outlined mr-2" /> Title
+                  </span>
+                  <span
+                    onClick={isAdmin ? () => setShowTitleEdit(true) : null}
+                    className={
+                      isAdmin ? "cursor-pointer" : "cursor-not-allowed"
+                    }
+                  >
+                    <i className="fas fa-edit " /> Edit
+                  </span>
+                </div>
+                {!showTitleEdit ? (
+                  <p className="ml-7">{board.title}</p>
+                ) : (
+                  <div className="ml-7">
+                    <input
+                      type="text"
+                      className="border-2 p-1 w-1/2 border-black"
+                      value={newTitle}
+                      onChange={({ target }) => setNewTitle(target.value)}
+                    />
+                    <div className="mt-2">
+                      <button
+                        type="submit"
+                        disabled={newTitle === board.title}
+                        className={`py-1 px-2 rounded-md ${
+                          newTitle !== board.title
+                            ? "bg-blue-400 cursor-pointer hover:shadow-md text-white"
+                            : "bg-gray-300 cursor-not-allowed"
+                        }`}
+                      >
+                        {loading ? "Saving..." : "Save"}
+                      </button>
+                      <i
+                        title="close"
+                        className="fa fa-times ml-3 cursor-pointer"
+                        onClick={() => setShowTitleEdit(false)}
+                      ></i>
+                    </div>
                   </div>
-                </form>
-              )}
-            </div>
-            <div>
-              <div className="flex justify-between w-60 mb-2 ">
-                <span className="text-lg font-medium">
-                  <i className="fas fa-file-alt mr-2" /> Description
-                </span>
-                <span
-                  onClick={isAdmin ? () => setShowDescriptionEdit(true) : null}
-                  className={isAdmin ? "cursor-pointer" : "cursor-not-allowed"}
-                >
-                  <i className="fas fa-edit " /> Edit
-                </span>
+                )}
               </div>
-              {!showDescriptionEdit ? (
-                <p className="w-52 break-words">{board.description}</p>
-              ) : (
-                <form onSubmit={(e) => editHandler(e)}>
-                  <textarea
-                    type="text"
-                    className="border-2 p-1 resize-none border-black"
-                    value={newDescription}
-                    onChange={({ target }) => setNewDescription(target.value)}
-                  />
-                  <div className="mt-2">
-                    <button
-                      type="submit"
-                      disabled={newDescription === board.description}
-                      className={`py-1 px-2 rounded-md ${
-                        newDescription !== board.description
-                          ? "bg-blue-400 cursor-pointer hover:shadow-md text-white"
-                          : "bg-gray-300 cursor-not-allowed"
-                      }`}
-                    >
-                      {loading ? "Saving..." : "Save"}
-                    </button>
+              <div>
+                <div className="flex justify-between w-60 mb-2 ">
+                  <span className="text-lg font-medium">
+                    <i className="far fa-file-alt mr-2" /> Description
+                  </span>
+                  <span
+                    onClick={
+                      isAdmin ? () => setShowDescriptionEdit(true) : null
+                    }
+                    className={
+                      isAdmin ? "cursor-pointer" : "cursor-not-allowed"
+                    }
+                  >
+                    <i className="fas fa-edit " /> Edit
+                  </span>
+                </div>
+                {!showDescriptionEdit ? (
+                  <p className="w-52 break-words ml-7">
+                    {board.description ?? "No Description"}
+                  </p>
+                ) : (
+                  <div className="ml-7">
+                    <textarea
+                      type="text"
+                      className="border-2 p-1 w-2/3 h-20 resize-none border-black"
+                      value={newDescription}
+                      onChange={({ target }) => setNewDescription(target.value)}
+                    />
+                    <div className="mt-2">
+                      <button
+                        type="submit"
+                        disabled={newDescription === board.description}
+                        className={`py-1 px-2 rounded-md ${
+                          newDescription !== board.description
+                            ? "bg-blue-400 cursor-pointer hover:shadow-md text-white"
+                            : "bg-gray-300 cursor-not-allowed"
+                        }`}
+                      >
+                        {loading ? "Saving..." : "Save"}
+                      </button>
 
-                    <i
-                      title="close"
-                      className="fa fa-times ml-3 cursor-pointer"
-                      onClick={() => setShowDescriptionEdit(false)}
-                    ></i>
+                      <i
+                        title="close"
+                        className="fa fa-times ml-3 cursor-pointer"
+                        onClick={() => setShowDescriptionEdit(false)}
+                      ></i>
+                    </div>
                   </div>
-                </form>
-              )}
+                )}
+              </div>
             </div>
-          </div>
-
+          </form>
           <div className="flex w-full">
             <button
               disabled={!isAdmin}
@@ -166,7 +175,8 @@ export const BoardMenuModal = ({
                 !isAdmin ? "cursor-not-allowed" : ""
               }`}
             >
-              Delete Board <i className="fas fa-trash"></i>
+              <i className="fas fa-trash"></i>
+              {" Delete Board"}
             </button>
           </div>
         </div>
