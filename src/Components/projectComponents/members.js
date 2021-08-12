@@ -20,7 +20,7 @@ export const Members = ({ project }) => {
 
   const isAdmin = project.adminId === user._id;
   return (
-    <div className="w-500 h-500 overflow-y-scroll ml-auto mr-auto py-10">
+    <div className=" w-300 md:w-500 h-500 overflow-y-scroll ml-auto mr-auto py-10">
       <div className="flex justify-between">
         <span className="font-semibold">{`Team Members (${members.length})`}</span>{" "}
         {isAdmin && (
