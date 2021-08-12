@@ -13,3 +13,4 @@ export { CardModal } from "./modals/cardModal";
 export { AddComment } from "./addComment";
 export { ProjectBoards } from "./projectComponents/projectBoards";
 export { Members } from "./projectComponents/members";
+export { Loading } from "./loading";
