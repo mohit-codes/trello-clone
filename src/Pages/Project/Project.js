@@ -18,9 +18,9 @@ export const Project = () => {
     <div>
       <div className="h-64 bg-gray-700 flex flex-col">
         <div className="flex mr-auto ml-auto">
-          <div className="px-3 py-4 w-28 h-28 rounded-md bg-gray-200 mt-5">
+          <div className="py-2 px-2  w-14 h-14 md:px-3 md:py-4 md:w-28 md:h-28 rounded-md bg-gray-200 mt-5">
             {" "}
-            <i className="fa fa-users text-7xl"></i>
+            <i className="fa fa-users text-3xl md:text-7xl"></i>
           </div>
           <div className="lg:w-600 md:w-600 ml-4 text-white mt-5">
             <p className="text-3xl font-bold tracking-wide">
@@ -70,7 +70,7 @@ export const Project = () => {
       {selectedTab === 1 && <ProjectBoards project={project} />}
       {selectedTab === 2 && <Members project={project} />}
       {selectedTab === 3 && (
-        <div className="ml-auto mr-auto w-500 p-10">
+        <div className="ml-auto py-10 mr-auto w-300 md:w-500 md:px-10">
           {isAdmin ? (
             <ProjectSettings
               project={projectState}
