@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useAxiosGet } from "../../hooks/useAxiosGet";
 import { PropTypes } from "prop-types";
 import { useLocation } from "react-router-dom";
-import { CreateList } from "../../Components/createList";
-import { BoardMenuModal, List } from "../../Components";
+import { BoardMenuModal, List, Loading, CreateList } from "../../Components";
 
 export const Board = () => {
   const {
@@ -17,6 +16,7 @@ export const Board = () => {
     data: lists,
     addItem: addList,
     removeItem: removeList,
+    loading: loadingLists,
   } = useAxiosGet("boards/lists", boardId);
   const [showMenu, setShowMenu] = useState(false);
   return (
@@ -40,31 +40,37 @@ export const Board = () => {
             <span>Show Menu</span>
           </p>
         </div>
-        <div className="flex flex-row overflow-x-auto w-full py-3 items-start space-x-3">
-          {lists?.map((list) => {
-            return (
-              <List
-                key={list._id}
-                list={list}
-                removeList={removeList}
-                projectAdmin={projectAdmin}
+        <div className="flex overflow-y-hidden">
+          <div className="flex flex-row overflow-x-auto w-full py-3 items-start ">
+            {loadingLists ? (
+              <Loading />
+            ) : (
+              lists?.map((list) => {
+                return (
+                  <List
+                    key={list._id}
+                    list={list}
+                    removeList={removeList}
+                    projectAdmin={projectAdmin}
+                  />
+                );
+              })
+            )}
+            {showCreateList ? (
+              <CreateList
+                setShowCreateList={setShowCreateList}
+                boardId={boardId}
+                addList={addList}
               />
-            );
-          })}
-          {showCreateList ? (
-            <CreateList
-              setShowCreateList={setShowCreateList}
-              boardId={boardId}
-              addList={addList}
-            />
-          ) : (
-            <button
-              onClick={() => setShowCreateList(true)}
-              className="w-48 h-10 text-white bg-blue-400 rounded-md hover:shadow-md"
-            >
-              {" Add a list +"}
-            </button>
-          )}
+            ) : (
+              <button
+                onClick={() => setShowCreateList(true)}
+                className="min-w-12rem h-10 text-white bg-blue-400 rounded-md hover:shadow-md"
+              >
+                {" Add a list +"}
+              </button>
+            )}
+          </div>
         </div>
       </div>
       {showMenu && (

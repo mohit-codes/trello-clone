@@ -4,6 +4,7 @@ import {
   CreateBoard,
   BoardCard,
   JoinProjectModal,
+  Loading,
 } from "../../Components";
 import { useAxiosGet } from "../../hooks/useAxiosGet";
 import { useAuth } from "../../Context/AuthProvider";
@@ -12,11 +13,16 @@ export const Home = () => {
   const [showJoinProjectModal, setShowJoinProjectModal] = useState(false);
   const [showAddBoardModal, setshowAddBoardModal] = useState(false);
   const { user } = useAuth();
-  const { addItem: addProject, data: projects } = useAxiosGet(
-    "projects",
-    user._id
-  );
-  const { addItem: addBoard, data: boards } = useAxiosGet("boards", user._id);
+  const {
+    addItem: addProject,
+    data: projects,
+    loading: loadingProjects,
+  } = useAxiosGet("projects", user._id);
+  const {
+    addItem: addBoard,
+    data: boards,
+    loading: loadingBoards,
+  } = useAxiosGet("boards", user._id);
   return (
     <>
       <div className="flex-1 min-w-full bg-gray-700 text-white">
@@ -27,13 +33,17 @@ export const Home = () => {
               <span className="text-xl  font-medium">Personal Boards</span>
             </div>
             <div className="flex flex-wrap">
-              {boards?.map((board) => {
-                return (
-                  <div key={board._id}>
-                    <BoardCard object={board} to="board" />
-                  </div>
-                );
-              })}
+              {loadingBoards ? (
+                <Loading />
+              ) : (
+                boards?.map((board) => {
+                  return (
+                    <div key={board._id}>
+                      <BoardCard object={board} to="board" />
+                    </div>
+                  );
+                })
+              )}
               {showAddBoardModal ? (
                 <CreateBoard
                   setShowModal={setshowAddBoardModal}
@@ -55,13 +65,17 @@ export const Home = () => {
               <span className="text-xl font-medium">Teams/Projects</span>
             </div>
             <div className="flex flex-wrap">
-              {projects?.map((project) => {
-                return (
-                  <div key={project._id}>
-                    <BoardCard object={project} to="project" />
-                  </div>
-                );
-              })}
+              {loadingProjects ? (
+                <Loading />
+              ) : (
+                projects?.map((project) => {
+                  return (
+                    <div key={project._id}>
+                      <BoardCard object={project} to="project" />
+                    </div>
+                  );
+                })
+              )}
               <div className="w-60 h-32 text-center py-12 mt-6 bg-gray-200 text-gray-500 cursor-pointer">
                 <span
                   onClick={() => {
