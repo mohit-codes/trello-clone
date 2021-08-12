@@ -7,7 +7,6 @@ export function CreateBoard({ setShowModal, addBoard, projectId }) {
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
-  console.log(projectId);
   const submitHandler = async (e) => {
     e.preventDefault();
     setTitle("");
@@ -36,6 +35,7 @@ export function CreateBoard({ setShowModal, addBoard, projectId }) {
     addBoard(data.board);
     setShowModal(false);
   };
+
   return (
     <div className="w-60 h-32 mt-6 p-2 border-2 bg-gray-100 border-black ">
       <form className="space-y-2" onSubmit={(e) => submitHandler(e)}>
@@ -43,7 +43,7 @@ export function CreateBoard({ setShowModal, addBoard, projectId }) {
           <span className="text-black"> Board Title</span>
           <i
             title="close"
-            className="fa fa-times  cursor-pointer"
+            className="fa fa-times text-black  cursor-pointer"
             onClick={() => setShowModal(false)}
           ></i>
         </div>
