@@ -2,28 +2,34 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { BoardCard, CreateBoard } from "../index";
 import { useAxiosGet } from "../../hooks/useAxiosGet";
+import { Loading } from "../loading";
 
 export const ProjectBoards = ({ project }) => {
   const [showAddBoardModal, setShowAddBoardModal] = useState(false);
 
-  const { addItem: addBoard, data: boards } = useAxiosGet(
-    "projects/boards",
-    project._id
-  );
+  const {
+    addItem: addBoard,
+    data: boards,
+    loading: loadingBoards,
+  } = useAxiosGet("projects/boards", project._id);
   return (
     <div>
       <div className="flex px-10 flex-wrap">
-        {boards?.map((board) => {
-          return (
-            <div key={board._id}>
-              <BoardCard
-                object={board}
-                to="board"
-                projectAdmin={project.adminId}
-              />
-            </div>
-          );
-        })}
+        {loadingBoards ? (
+          <Loading spinnerColor="blue" />
+        ) : (
+          boards?.map((board) => {
+            return (
+              <div key={board._id}>
+                <BoardCard
+                  object={board}
+                  to="board"
+                  projectAdmin={project.adminId}
+                />
+              </div>
+            );
+          })
+        )}
         {showAddBoardModal ? (
           <CreateBoard
             setShowModal={setShowAddBoardModal}
