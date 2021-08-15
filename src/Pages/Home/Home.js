@@ -7,8 +7,10 @@ import {
   Loading,
 } from "../../Components";
 import { useAxiosGet } from "../../hooks/useAxiosGet";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 import { useAuth } from "../../Context/AuthProvider";
 export const Home = () => {
+  useDocumentTitle("Boards  |  Trello");
   const [showAddProjectModal, setshowAddProjectModal] = useState(false);
   const [showJoinProjectModal, setShowJoinProjectModal] = useState(false);
   const [showAddBoardModal, setshowAddBoardModal] = useState(false);

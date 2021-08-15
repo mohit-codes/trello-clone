@@ -4,6 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { Members, ProjectBoards } from "../../Components";
 import ProjectSettings from "../../Components/projectComponents/projectSettings";
 import { useAuth } from "../../Context/AuthProvider";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 export const Project = () => {
   const { projectId } = useParams();
@@ -14,6 +15,8 @@ export const Project = () => {
   const [projectState, setProjectState] = useState(project);
   const isAdmin = project.adminId === user._id;
   const [selectedTab, setSelectedTab] = useState(1);
+
+  useDocumentTitle(`${project.title}  |  Trello`);
   return (
     <div>
       <div className="h-64 bg-gray-700 flex flex-col">
