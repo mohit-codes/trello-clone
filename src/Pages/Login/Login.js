@@ -22,7 +22,6 @@ export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  // const { state } = useLocation();
   const navigate = useNavigate();
   useDocumentTitle("Log in into Trello");
 
