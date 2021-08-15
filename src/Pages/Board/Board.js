@@ -3,13 +3,14 @@ import { useAxiosGet } from "../../hooks/useAxiosGet";
 import { PropTypes } from "prop-types";
 import { useLocation } from "react-router-dom";
 import { BoardMenuModal, List, Loading, CreateList } from "../../Components";
-
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 export const Board = () => {
   const {
     state: { object: currentBoard, projectAdmin },
   } = useLocation();
 
   const [board, setBoard] = useState(currentBoard);
+  useDocumentTitle(`${board.title}  |  Trello`);
   const { _id: boardId } = board;
   const [showCreateList, setShowCreateList] = useState(false);
   const {
@@ -36,11 +37,12 @@ export const Board = () => {
             onClick={() => setShowMenu(true)}
             className="py-1 ml-auto cursor-pointer"
           >
-            <i className="fa fa-chevron-left mr-2"></i>
-            <span>Show Menu</span>
+            <i className="fa fa-chevron-left hidden md:inline-block mr-2"></i>
+            <i className="fa fa-cog md:hidden mr-2"></i>
+            <span className="hidden md:inline-block">Show Menu</span>
           </p>
         </div>
-        <div className="flex overflow-y-hidden">
+        <div className="flex overflow-y-hidden h-5/6">
           <div className="flex flex-row overflow-x-auto w-full py-3 items-start ">
             {loadingLists ? (
               <Loading />
