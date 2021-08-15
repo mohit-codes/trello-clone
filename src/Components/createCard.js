@@ -42,7 +42,6 @@ export const CreateCard = ({ listId, setShowCreateCard, addCard }) => {
         </button>
         <i
           className="fa fa-times text-2xl ml-2 cursor-pointer"
-          title="close"
           onClick={() => setShowCreateCard(false)}
         ></i>
       </form>

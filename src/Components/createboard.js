@@ -42,7 +42,6 @@ export function CreateBoard({ setShowModal, addBoard, projectId }) {
         <div className="flex justify-between">
           <span className="text-black"> Board Title</span>
           <i
-            title="close"
             className="fa fa-times text-black  cursor-pointer"
             onClick={() => setShowModal(false)}
           ></i>

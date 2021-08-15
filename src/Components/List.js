@@ -53,22 +53,14 @@ export const List = ({ list, removeList, projectAdmin }) => {
         </p>
         <div>
           {showListEditOptions && (
-            <>
-              <i
-                className="fa fa-info-circle"
-                title="Board owner can edit list title by clicking on title"
-              ></i>
-              <i
-                title="delete"
-                className={`fa fa-trash  text-xl ml-2 ${
-                  isAdmin ? "cursor-pointer" : "cursor-not-allowed"
-                }`}
-                onClick={isAdmin ? (event) => deleteHandler(event) : null}
-              ></i>
-            </>
+            <i
+              className={`fa fa-trash  text-xl ml-2 ${
+                isAdmin ? "cursor-pointer" : "cursor-not-allowed"
+              }`}
+              onClick={isAdmin ? (event) => deleteHandler(event) : null}
+            ></i>
           )}
           <i
-            title={showListEditOptions ? "close" : "options"}
             className={`ml-2  text-xl cursor-pointer ${
               showListEditOptions ? "fa fa-times" : "fa fa-ellipsis-h"
             }`}

@@ -56,7 +56,7 @@ export const CardModal = ({
     removeComment(id);
   };
   return (
-    <div className="px-5 py-5 w-600 h-500 center-modal overflow-y-scroll  fixed z-20 rounded-md cursor-default bg-white text-black">
+    <div className="px-5 py-5 w-full h-400 md:w-600 md:h-500 center-modal overflow-y-scroll  fixed z-20 rounded-md cursor-default bg-white text-black">
       <div className="flex justify-between">
         <div>
           <p className="font-semibold text-xl">

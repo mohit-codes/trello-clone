@@ -45,7 +45,6 @@ export const CreateList = ({ setShowCreateList, boardId, addList }) => {
             </button>
 
             <i
-              title="close"
               className="fa fa-times ml-2 text-2xl cursor-pointer"
               onClick={() => setShowCreateList(false)}
             ></i>

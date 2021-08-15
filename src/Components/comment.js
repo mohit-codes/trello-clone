@@ -77,7 +77,6 @@ export const Comment = ({ comment, commentDeleteHandler }) => {
               {loading ? "Saving..." : "Save"}
             </button>
             <i
-              title="close"
               className="fa fa-times ml-3 cursor-pointer"
               onClick={() => {
                 setToggleEdit(false);
