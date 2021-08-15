@@ -1,1 +1,1 @@
-export const backendUrl = "http://localhost:8080";
+export const backendUrl = "https://clone-trello-backend.herokuapp.com";
