@@ -2,7 +2,7 @@ import React, { useContext, createContext, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { backendUrl } from "../util/constant";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const {
         data: { user, success, message, token },
-      } = await axios.post("http://localhost:8080/users/login", {
+      } = await axios.post(`${backendUrl}/users/login`, {
         username: username.toLowerCase(),
         password,
       });
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const {
         data: { user, success, message, token },
-      } = await axios.post("http://localhost:8080/users/signup", {
+      } = await axios.post(`${backendUrl}/users/signup`, {
         username: username.toLowerCase(),
         email: email.toLowerCase(),
         password,
