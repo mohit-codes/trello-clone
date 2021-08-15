@@ -22,7 +22,6 @@ export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  // const { state } = useLocation();
   const navigate = useNavigate();
   useDocumentTitle("Log in into Trello");
 
@@ -113,6 +112,17 @@ export const Login = () => {
           </div>
         </AccountForm>
       </CenterLayout>
+      <div className="flex justify-center mt-2 text-gray-400 ">
+        Coded with <i className="fa fa-heart ml-1 text-red-600 pt-1 mr-1" />
+        <span className="hover:text-gray-500 cursor-pointer">
+          <a
+            href="https://linktr.ee/mohit.codes"
+            className="no-underline text-gray-500"
+          >
+            @mohit-codes
+          </a>
+        </span>
+      </div>
     </div>
   );
 };

@@ -7,3 +7,46 @@
 * {
   font-family: "poppins";
 }
+
+.App {
+  height: 100vh;
+}
+
+.project-tabs {
+  @apply lg:w-32 md:w-32 font-bold h-10 text-center cursor-pointer p-2 rounded-sm;
+}
+
+.fa-outlined {
+  -webkit-text-fill-color: transparent !important;
+  -webkit-text-stroke-width: 1px !important;
+}
+
+.out-of-focus {
+  height: 200vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 10;
+  display: none;
+}
+.center-modal {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+::-webkit-scrollbar {
+  /* width: 12px; */
+  display: none;
+  /* background-color: #f5f5f5; */
+}
+
+.no-spin::-webkit-inner-spin-button,
+.no-spin::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+.no-spin {
+  -moz-appearance: textfield !important;
+}

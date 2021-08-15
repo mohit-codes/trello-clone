@@ -2,7 +2,7 @@ import React, { useContext, createContext, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { backendUrl } from "../util/constant";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -13,11 +13,28 @@ export const AuthProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("authToken"))
   );
   const navigate = useNavigate();
+
+  if (token) {
+    console.log("token set");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
+
+  axios.interceptors.response.use(undefined, function (error) {
+    if (
+      error.response.status === 401 ||
+      error.response.status === 403 ||
+      error.response.data.message === "Invalid Token"
+    ) {
+      logout();
+    }
+    return Promise.reject(error);
+  });
+
   const loginUserWithCredentials = async (username, password) => {
     try {
       const {
         data: { user, success, message, token },
-      } = await axios.post("http://localhost:8080/users/login", {
+      } = await axios.post(`${backendUrl}/users/login`, {
         username: username.toLowerCase(),
         password,
       });
@@ -38,7 +55,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const {
         data: { user, success, message, token },
-      } = await axios.post("http://localhost:8080/users/signup", {
+      } = await axios.post(`${backendUrl}/users/signup`, {
         username: username.toLowerCase(),
         email: email.toLowerCase(),
         password,

@@ -165,7 +165,7 @@ export const Signup = () => {
             </div>
             <div>
               <FormField
-                type="text"
+                type="password"
                 required
                 value={confirmPassword}
                 placeholder="Enter the same password"
