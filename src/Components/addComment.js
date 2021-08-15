@@ -30,7 +30,7 @@ export const AddComment = ({ addCommentItem, card }) => {
           <span className="">Add comment</span>
         </p>
         <textarea
-          className="p-1 text-sm resize-none border-2 mt-2 w-80 h-20"
+          className="p-1 text-sm resize-none border-2 mt-2 w-56 md:w-80 h-20"
           placeholder="Leave a comment..."
           onChange={(e) => setCommentContent(e.target.value)}
           value={commentContent}

@@ -53,7 +53,7 @@ export const BoardMenuModal = ({
   };
   return (
     <>
-      <div className="fixed z-20 text-black px-3 py-1 bg-white flex flex-col rounded-sm center-modal w-80 lg:min-h-72 lg:max-w-900 lg:w-600 max-h-500">
+      <div className="fixed z-20 text-black px-3 py-1 bg-white flex  flex-col rounded-sm center-modal w-300 md:w-500 lg:min-h-72 lg:max-w-900 lg:w-600 max-h-500">
         <div className="border-b-2 w-full pb-1 py-1 border-gray-300">
           <span className="text-xl font-semibold">About This Board</span>
           <i

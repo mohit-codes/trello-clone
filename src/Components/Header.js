@@ -8,7 +8,7 @@ export const Header = () => {
   const { user, logout } = useAuth();
   return (
     <>
-      <nav className="pl-4 md:p-0 flex z-10 h-14 justify-between items-center rounded-full">
+      <nav className=" md:p-0 flex z-10 h-14 justify-between items-center rounded-full">
         <div
           onClick={() => {
             navigate("/");
@@ -18,10 +18,10 @@ export const Header = () => {
           <i className="fa fa-trello mr-1"></i>
           Boards
         </div>
-        <div className="cursor-pointer">
+        <div className="pl-4 md:pl-0">
           <img className="h-7 my-2 md:my-0 md:h-8 " src={logo} />
         </div>
-        <div className="space-x-10 mr-10">
+        <div className="space-x-10 mr-10 font-medium">
           <span> Hello, {user?.username} </span>
           <span
             onClick={() => {
