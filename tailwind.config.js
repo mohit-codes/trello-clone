@@ -1,11 +1,9 @@
 module.exports = {
-  purge: [],
-  // purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-  darkMode: false, // or 'media' or 'class'
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  darkMode: false,
   theme: {
     fontFamily: {
       poppins: ["Poppins"],
-      // noto: ["Noto Sans"],
     },
 
     extend: {
