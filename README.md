@@ -18,7 +18,7 @@ Trello is a simple, and easy-to-use collaboration tool that enables user to orga
 - Login/signup using valid email.
 - Create, read, edit and delete personal board.
 - Create project/Team.
-- Previlige for project Admin such as edit project details, remove members, delete project boards, edit boards, lists, cards.
+- Privilege for project Admin such as edit project details, remove members, delete project boards, edit boards, lists, cards.
 - Add, edit and delete comments to cards
 - Join Project/team using unique project code. 
 - Responsive design breakpoints - desktop, tablet, mobile.
@@ -33,4 +33,4 @@ Trello is a simple, and easy-to-use collaboration tool that enables user to orga
  <img src="https://user-images.githubusercontent.com/40515852/129558976-180b4f89-7965-4f6c-8da7-a6454d5ff659.png " width=500 />
  </div>
  
- ### Made with ❤️ by [Mohit](https://twitter.com/Mohit_codes)
+ ### Made with ❤️ by [Mohit](https://twitter.com/Mohit_codes) for educational purpose.
