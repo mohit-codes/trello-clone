@@ -18,9 +18,7 @@ h1{
   input::-ms-clear {
         display: none;
       }
-  .method-separator{
-    margin:15px 0px;
-    }
+      
   .password-container{
     display: flex;
     justify-content: space-around;
@@ -61,9 +59,7 @@ export const Background = styled.div`
   min-width: 100vh;
   min-height: 100vh;
 `;
-export const AccountForm = styled.div`
-  /* display: flex; */
-`;
+
 export const ErrorText = styled.div`
   font-size: 14px;
   color: red;
