@@ -103,7 +103,19 @@ export const Login = () => {
               value={loginStatus === "loading" ? "Logging In..." : "Login"}
             />
           </form>
-
+          <div>
+            <div className="text-center pt-3">
+              <p
+                className="hover:underline cursor-pointer"
+                onClick={() => {
+                  setUsername("test");
+                  setPassword("Test@123");
+                }}
+              >
+                Use test credentials
+              </p>
+            </div>
+          </div>
           <div>
             <div className="text-center py-2">OR</div>
           </div>
