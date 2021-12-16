@@ -5,7 +5,6 @@ import LeftImage from "../../assets/undraw_a.svg";
 import RightImage from "../../assets/undraw_b.svg";
 import {
   CenterLayout,
-  AccountForm,
   GlobalStyle,
   FormField,
   FormFieldPassword,
@@ -105,7 +104,7 @@ export const Signup = () => {
       <GlobalStyle />
       <Logo>Trello</Logo>
       <CenterLayout className="">
-        <AccountForm>
+        <div>
           <h1 className="text-center ">Sign up for Trello</h1>
           <ErrorText
             show={signupError !== "" || serverError !== "" ? true : false}
@@ -186,7 +185,7 @@ export const Signup = () => {
           <div className="text-center">
             <Link to="/login">Already have an account? Login</Link>
           </div>
-        </AccountForm>
+        </div>
       </CenterLayout>
     </div>
   );
