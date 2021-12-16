@@ -5,7 +5,6 @@ import LeftImage from "../../assets/undraw_a.svg";
 import RightImage from "../../assets/undraw_b.svg";
 import {
   CenterLayout,
-  AccountForm,
   GlobalStyle,
   FormField,
   FormFieldPassword,
@@ -55,7 +54,7 @@ export const Login = () => {
       <GlobalStyle />
       <Logo>Trello</Logo>
       <CenterLayout className="">
-        <AccountForm>
+        <div>
           <h1 className="text-center ">Log in to Trello</h1>
           <ErrorText show={errorMsg !== "" ? true : false}>
             {errorMsg}
@@ -105,21 +104,36 @@ export const Login = () => {
             />
           </form>
           <div>
-            <div className="method-separator text-center">OR</div>
+            <div className="text-center pt-3">
+              <p
+                className="hover:underline cursor-pointer"
+                onClick={() => {
+                  setUsername("test");
+                  setPassword("Test@123");
+                }}
+              >
+                Use test credentials
+              </p>
+            </div>
+          </div>
+          <div>
+            <div className="text-center py-2">OR</div>
           </div>
           <div className="text-center">
             <Link to="/signup">Signup for an account</Link>
           </div>
-        </AccountForm>
+        </div>
       </CenterLayout>
       <div className="flex justify-center mt-2 text-gray-400 ">
-        Made with <i className="fa fa-heart ml-1 text-red-600 pt-1 mr-1" />
-        <span className="hover:text-gray-500 cursor-pointer">
+        <span> Made with</span>
+        <i className="fa fa-heart ml-1 text-red-600 pt-1 mr-1" />
+        <span>by </span>
+        <span className="hover:text-gray-500 cursor-pointer ml-1">
           <a
             href="https://linktr.ee/mohit.codes"
             className="no-underline text-gray-500"
           >
-            @mohit-codes
+            Mohit
           </a>
         </span>
       </div>
