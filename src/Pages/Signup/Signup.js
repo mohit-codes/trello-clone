@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useAuth } from "../../Context/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
@@ -28,7 +29,8 @@ export const Signup = () => {
   const isPasswordMatched =
     confirmPassword !== "" && confirmPassword === password;
 
-  const checkInputs = email !== "" && username !== "" && isPasswordMatched;
+  const checkInputs =
+    !email.trim().length && !username.trim().length && isPasswordMatched;
 
   const isPasswordValid = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/.test(
     password
