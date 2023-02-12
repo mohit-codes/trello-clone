@@ -22,7 +22,9 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "start": "craco start"
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test"
   },
   "eslintConfig": {
     "extends": [
