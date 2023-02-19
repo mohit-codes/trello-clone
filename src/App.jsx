@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import { Login, Signup, Home, Board, Project } from "../src/Pages/index";
-import { If } from "./Components/if";
+import { If } from "./Components/If";
 import { Header, PrivateRoute } from "./Components/index";
 import { HEADER_IGNORE_ROUTES } from "./util/constant";
 
