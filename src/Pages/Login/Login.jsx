@@ -108,8 +108,8 @@ export const Login = () => {
               <p
                 className="hover:underline cursor-pointer"
                 onClick={() => {
-                  setUsername("test");
-                  setPassword("Test@123");
+                  setUsername("mohit-chills");
+                  setPassword("Mohit@#123");
                 }}
               >
                 Use test credentials
