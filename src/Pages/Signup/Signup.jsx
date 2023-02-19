@@ -30,7 +30,7 @@ export const Signup = () => {
     confirmPassword !== "" && confirmPassword === password;
 
   const checkInputs =
-    !email.trim().length && !username.trim().length && isPasswordMatched;
+    !!email.trim().length && !!username.trim().length && isPasswordMatched;
 
   const isPasswordValid = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/.test(
     password

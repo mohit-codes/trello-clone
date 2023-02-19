@@ -1,1 +1,3 @@
-export const backendUrl = "https://clone-trello-backend.herokuapp.com";
+export const backendUrl = "https://api-trello.onrender.com";
+
+export const HEADER_IGNORE_ROUTES = ["/login", "/signup"];
