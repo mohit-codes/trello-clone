@@ -20,6 +20,8 @@ export const AuthProvider = ({ children }) => {
   }
 
   axios.interceptors.response.use(undefined, function (error) {
+    console.log("⚡️⚡️ ~ file: AuthProvider.jsx:28 ~ error.response", error);
+    console.log("⚡️⚡️ ~ file: AuthProvider.jsx:28 ~ error.response", error);
     if (
       error.response.status === 401 ||
       error.response.status === 403 ||
